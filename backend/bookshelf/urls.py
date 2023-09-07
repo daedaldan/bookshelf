@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
+from rest_framework.authtoken.views import obtain_auth_token
+
 from books import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # reviews
     path('reviews/post/', views.post_review_view, name='post_review'),
+    # user authentication,
+    path('user/register/', views.CreateUserView.as_view(), name='register'),
+    path('user/token_auth/', obtain_auth_token, name='token_auth'),
+
 ]
