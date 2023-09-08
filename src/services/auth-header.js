@@ -1,3 +1,4 @@
+// Generates authorization header for user to securely communicate with backend
 export default function authHeader() {
   const user = JSON.parse(localStorage.getItem('user'));
 

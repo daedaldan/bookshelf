@@ -3,16 +3,21 @@ import axios from "axios";
 // URL for Django Rest API backend
 const API_URL = "http://127.0.0.1:8000/user/";
 
+/*
+ * Handles user authentication by receiving, storing, deleting user token in web browser based on authentication status.
+ */
 class AuthService {
+  // Logs in user by receiving token from backend and storing the username, password, and token in web browser
   login(username, password) {
+    // Send POST request to backend to generate token
     return axios
         .post(API_URL + "token-auth/", {
           username: username,
           password: password
-        })
+        }
         .then(response => {
           if (response.data.token) {
-            // save user token and info in local storage
+            // Save user's token and info in browser's local storage
             let userData = response.data;
             userData['username'] = username;
             userData = JSON.stringify(userData);
@@ -23,12 +28,14 @@ class AuthService {
         });
   }
 
+  // Delete user token and info from local storage upon logout
   logout() {
-    // delete user token and info from local storage
     localStorage.removeItem('user');
   }
 
+  //
   register(email, username, password) {
+    // Send POST request with user's email, username, and password to create new User instance in backend
     return axios
         .post(API_URL + "register/", {
           email: email,
@@ -37,6 +44,7 @@ class AuthService {
         });
   }
 
+  // Get JSON representing current user's information
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
