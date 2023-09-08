@@ -18,7 +18,6 @@ import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -41,22 +40,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Other apps
+    # Enables use of REST framework features e.g. serialization, view classes, token authentication.
     'rest_framework',
     'rest_framework.authtoken',
+
+    # Manages cross-origin resource sharing (allows backend to communicate with frontend and APIs).
     'corsheaders',
+    # Use WhiteNoise to handle serving static files from React frontend.
     'whitenoise.runserver_nostatic',
 
     # My apps
     'books'
 ]
 
+# Set token authentication as default authentication method for views.
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
 
+# Middleware classes process requests and responses and each class is processed sequentially.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,6 +78,7 @@ ROOT_URLCONF = 'bookshelf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # Specifies that the index.html template is found in /build directory of React frontend.
         'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,21 +136,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Configure app for Heroku deployment
+# Configure app for Heroku deployment.
 django_heroku.settings(locals())
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = '/static/'
-# # place static in same location as webpack build files
-# STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
-# STATICFILES_DIRS = []
-
+# Base URL for serving static files.
 STATIC_URL = '/static/'
+# Set additional static files directory as location of webpack build files.
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build', 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Use WhiteNoise's storage engine to compress and version static files.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
@@ -153,7 +156,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# whitelist server for frontend
+# Whitelist servers for frontend.
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
