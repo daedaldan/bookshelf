@@ -44,9 +44,12 @@ class BookSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
-    # Include the username of the User who authored the Review in the serialized data
+    # Add the username of the User who authored the Review.
     owner = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field="username")
+    # Add the title and author of the book being reviewed.
+    book_title = serializers.SlugRelatedField(queryset=Book.objects.all(), slug_field="title")
+    book_author = serializers.SlugRelatedField(queryset=Book.objects.all(), slug_field="author")
 
     class Meta:
         model = Review
-        fields = ('id', 'title', 'description', 'date', 'owner')
+        fields = ('id', 'title', 'description', 'date', 'owner', 'book_title', 'book_author')

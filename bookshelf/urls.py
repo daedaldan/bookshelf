@@ -23,15 +23,20 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from books import views
 
+# Create view to render index.html template generated from React frontend.
 index = never_cache(TemplateView.as_view(template_name='index.html'))
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # reviews
-    path('reviews/post/', views.post_review_view, name='post_review'),
-    # user authentication,
+    # Create, delete, and access Review data
+    path('reviews/create/', views.create_review_view, name='create_review'),
+    path('reviews/delete/', views.delete_review_view, name='delete_review'),
+    path('reviews/user/', views.get_user_reviews_view, name='get_user_reviews'),
+    path('reviews/all/user/', views.get_all_user_reviews_view, name='get_all_user_reviews'),
+    path('reviews/all/book/', views.get_all_book_reviews_view, name='get_all_book_reviews'),
+    # User authentication
     path('user/register/', views.CreateUserView.as_view(), name='register'),
     path('user/token_auth/', obtain_auth_token, name='token_auth'),
-    # React app
+    # Serve the React frontend at the root base URL of the website.
     re_path('', index, name='index'),
 ]
