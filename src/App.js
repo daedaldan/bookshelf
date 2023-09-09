@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 
+import Home from './components/Home/Home.js';
+import Website from './components/Website/Website.js';
+import Login from './components/Authentication/Login.js';
+import Register from './components/Authentication/Register.js';
+import Logout from './components/Authentication/Logout.js';
+
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.js';
 import AuthService from './services/auth.service.js';
 
