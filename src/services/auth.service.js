@@ -33,7 +33,6 @@ class AuthService {
     localStorage.removeItem('user');
   }
 
-  //
   register(email, username, password) {
     // Send POST request with user's email, username, and password to create new User instance in backend
     return axios
