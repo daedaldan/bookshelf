@@ -6,7 +6,7 @@ from .models import Book, Review
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    This serializer converts the data for a User in Django to JSON.
+    This serializer converts the data for a User in Django to JSON and vice versa.
     """
     class Meta:
         model = User
@@ -36,6 +36,9 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 class BookSerializer(serializers.ModelSerializer):
+    """
+    This serializer converts the data for a Book in Django to JSON and vice versa.
+    """
     id = serializers.ReadOnlyField()
 
     class Meta:
@@ -43,13 +46,48 @@ class BookSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'author', 'year', 'genre', 'description')
 
 class ReviewSerializer(serializers.ModelSerializer):
+    """
+    This serializer converts the data for a Review in Django to JSON and vice versa.
+    """
     id = serializers.ReadOnlyField()
-    # Add the username of the User who authored the Review.
-    owner = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field="username")
-    # Add the title and author of the book being reviewed.
-    book_title = serializers.SlugRelatedField(queryset=Book.objects.all(), slug_field="title")
-    book_author = serializers.SlugRelatedField(queryset=Book.objects.all(), slug_field="author")
+    book = BookSerializer()
 
     class Meta:
         model = Review
-        fields = ('id', 'title', 'description', 'date', 'owner', 'book_title', 'book_author')
+        fields = ('id', 'title', 'description', 'owner', 'book')
+
+    def create(self, validated_data):
+        """
+        Creates a new Review given the review and book data from the frontend.
+
+        If the Book being reviewed already exists, link the Review to the existing Book.
+        Otherwise, create a new Book object.
+
+        Parameters:
+        validated_data: The review info processed by the serializer.
+
+        Returns:
+        review: The newly created instance of the review.
+        """
+        print(validated_data)
+        # Pop the book's information from validated_data.
+        book_data = validated_data.pop("book")
+
+        # Check if any instances of the book being reviewed already exist.
+        existing_book = Book.objects.filter(title=book_data["title"], author=book_data["author"]).first()
+
+        if existing_book:
+            # If an instance of the book being reviewed already exists, create the Review and link it to the Book.
+            review = Review(title=validated_data["title"], description=validated_data["description"], owner=self.context["request"].user, book=existing_book)
+            review.save()
+
+            return review
+        else:
+            # If no instance of the book being reviewed already exists, create the Book.
+            new_book = Book.objects.create(title=book_data["title"],author=book_data["author"],year=book_data["year"],genre=book_data["genre"],description=book_data["description"])
+
+            # Create the review.
+            review = Review(title=validated_data["title"], description=validated_data["description"], owner=self.context["request"].user, book=new_book)
+            review.save()
+
+            return review
