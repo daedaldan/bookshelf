@@ -59,14 +59,6 @@ def create_review_view(request):
 
         return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
-def edit_review_view(request):
-    """
-    Edit the Review with the specified title and description.
-    """
-    pass
-
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 def delete_review_view(request, review_id):

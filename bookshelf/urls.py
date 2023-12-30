@@ -28,9 +28,8 @@ index = never_cache(TemplateView.as_view(template_name='index.html'))
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Create, edit, delete, and access Review data
+    # Create, delete, and access Review data
     path('reviews/create/', views.create_review_view, name='create_review'),
-    path('reviews/edit/', views.edit_review_view, name='edit_review'),
     path('reviews/delete/<str:review_id>/', views.delete_review_view, name='delete_review'),
     path('reviews/user/<str:username>/', views.get_user_reviews_view, name='get_user_reviews'),
     path('reviews/all/user/', views.get_all_user_reviews_view, name='get_all_user_reviews'),
