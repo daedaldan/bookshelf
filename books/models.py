@@ -17,7 +17,7 @@ class Review(models.Model):
     """A user's review of a book."""
     title = models.CharField(max_length=200)
     description = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.CharField(max_length=200)
 
     # Link the Review to the User who wrote it and the Book it is for
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

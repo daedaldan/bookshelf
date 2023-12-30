@@ -54,7 +54,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'title', 'description', 'owner', 'book')
+        fields = ('id', 'title', 'description', 'date', 'owner', 'book')
 
     def create(self, validated_data):
         """
@@ -69,7 +69,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         Returns:
         review: The newly created instance of the review.
         """
-        print(validated_data)
         # Pop the book's information from validated_data.
         book_data = validated_data.pop("book")
 
@@ -78,16 +77,28 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         if existing_book:
             # If an instance of the book being reviewed already exists, create the Review and link it to the Book.
-            review = Review(title=validated_data["title"], description=validated_data["description"], owner=self.context["request"].user, book=existing_book)
+            review = Review(title=validated_data["title"],
+                            description=validated_data["description"],
+                            date=validated_data["date"],
+                            owner=self.context["request"].user,
+                            book=existing_book)
             review.save()
 
             return review
         else:
             # If no instance of the book being reviewed already exists, create the Book.
-            new_book = Book.objects.create(title=book_data["title"],author=book_data["author"],year=book_data["year"],genre=book_data["genre"],description=book_data["description"])
+            new_book = Book.objects.create(title=book_data["title"],
+                                           author=book_data["author"],
+                                           year=book_data["year"],
+                                           genre=book_data["genre"],
+                                           description=book_data["description"])
 
             # Create the review.
-            review = Review(title=validated_data["title"], description=validated_data["description"], owner=self.context["request"].user, book=new_book)
+            review = Review(title=validated_data["title"],
+                            description=validated_data["description"],
+                            date=validated_dated["date"],
+                            owner=self.context["request"].user,
+                            book=new_book)
             review.save()
 
             return review
