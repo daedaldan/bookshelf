@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         # Serialize/deserialize the User's email, username, and password
-        fields = ('email', 'username', 'password')
+        fields = ('email', 'username', 'first_name', 'last_name', 'password')
         # Set the password field to write_only to prevent exposure through API
         extra_kwargs = {'password': {"write_only": "True"}}
 

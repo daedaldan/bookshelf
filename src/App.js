@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
 import Home from './components/Home/Home.js';
@@ -54,7 +54,7 @@ class App extends Component {
                       </li>
                       <li>
                         <Link to={"/home"}>
-                          <Button type="text">Home</Button>
+                          <button type="text">Home</button>
                         </Link>
                       </li>
                     </ul>);
@@ -63,12 +63,12 @@ class App extends Component {
       navbarLinks = (<ul>
                       <li>
                         <Link to={"/register"}>
-                          <Button type="primary">Register</Button>
+                          <button type="primary">Register</button>
                         </Link>
                       </li>
                       <li>
                         <Link to={"/login"}>
-                          <Button type="text">Login</Button>
+                          <button type="text">Login</button>
                         </Link>
                       </li>
                     </ul>);
@@ -87,13 +87,13 @@ class App extends Component {
             {navbarLinks}
           </nav>
 
-          // Use Switch to render Route that matches current URL path
-          <Switch>
-            <Route exact path="/" component={Website} />
-            <PrivateRoute exact path="/home" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-          </Switch>
+          // Use Routes to render Route that matches current URL path
+          <Routes>
+            <Route exact path='/' element={<Website/>} />
+            <PrivateRoute exact path='/home' element={<Home/>} />
+            <Route exact path='/login' element={<Login/>} />
+            <Route exact path='/register' element={<Register/>} />
+          </Routes>
         </BrowserRouter>
       </div>
     );

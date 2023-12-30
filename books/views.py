@@ -49,6 +49,14 @@ def create_review_view(request):
 
     return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def edit_review_view(request):
+    """
+    Edit the Review with the specified title and description.
+    """
+    pass
+
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 def delete_review_view(request):
