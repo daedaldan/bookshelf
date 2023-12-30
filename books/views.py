@@ -19,7 +19,7 @@ class CreateUserView(APIView):
         """
         Register a new User given a POST request with the user's username and password.
         """
-        # Process the user data
+        # Process the user data.
         serializer = UserSerializer(data=request.data)
 
         # If the user data from the POST request is valid, create a new user and a token for the user.
@@ -42,10 +42,42 @@ def create_review_view(request):
 
     If the book associated with the Review does not exist in the database, create a new instance of the Book.
     """
+    # Process the review data.
     serializer = ReviewSerializer(data=request.data)
 
+    # If the user data from the POST request is valid, check if an instance of the book being reviewed already exists.
     if serializer.is_valid():
-        serializer.save()
+        review_json = serializer.data
+
+        # Check if any instances of the book being reviewed already exist.
+        if Book.objects.filter(title=review_json["book_title"], author=review_json["book_author"]).exists():
+            # If an instance of the book being reviewed already exists, create the Review and link it to the Book.
+            existing_book = Book.objects.filter(title=review_json["book_title"], author=review_json["book_author"]).first()
+
+            # Create the review.
+            review = Review(title=review_json["review_title"],
+                            description=review_json["review_description"],
+                            owner=request.user,
+                            book=existing_book)
+
+            # Save the review.
+            review.save()
+        else:
+            # If no instance of the book being reviewed already exists, create the Book.
+            new_book = Book(title=review_json["book_title"],
+                            author=review_json["book_author"],
+                            year=review_json["book_year"],
+                            genre=review_json["book_genre"],
+                            description=review_json["book_description"])
+
+            # Create the review.
+            review = Review(title=review_json["review_title"],
+                            description=review_json["review_description"],
+                            owner=request.user,
+                            book=new_book)
+
+            # Save the review.
+            review.save()
 
     return Response(serializer.data)
 
