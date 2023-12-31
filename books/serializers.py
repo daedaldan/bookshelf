@@ -97,7 +97,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             # Create the review.
             review = Review(title=validated_data["title"],
                             description=validated_data["description"],
-                            date=validated_date["date"],
+                            date=validated_data["date"],
                             owner=self.context["request"].user,
                             book=new_book)
             review.save()
