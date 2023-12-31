@@ -52,12 +52,11 @@ def create_review_view(request):
     # If the review data from the POST request is valid, save the Review.
     if serializer.is_valid():
        serializer.save()
-
        return Response(serializer.data)
-    else: # If the user data from the POST request is invalid, notify the request sender.
-        errors = serializer.errors
 
-        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+    # If the user data from the POST request is invalid, notify the request sender.
+    errors = serializer.errors
+    return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
@@ -88,7 +87,7 @@ def get_user_reviews_view(request, username):
 
     # For each element of serialized_data, append the review data to cleaned_data, ignoring Django's internal info.
     for review in serialized_data:
-        cleaned_data.append(review["fields"])
+        cleaned_data.append(clean_serialized_review_data(review))
 
     # Return the specified user's reviews in JSON format.
     return JsonResponse(cleaned_data, safe=False, status=200)
@@ -120,9 +119,11 @@ def get_all_user_reviews_view(request):
         # Create list to store only review data.
         cleaned_data = []
 
+        print(serialized_data)
+
         # For each element of serialized_data, append the review data to cleaned_data, ignoring Django's internal info.
         for review in serialized_data:
-            cleaned_data.append(review["fields"])
+            cleaned_data.append(clean_serialized_review_data(review))
 
         user_reviews[username] = cleaned_data
 
@@ -159,10 +160,33 @@ def get_all_book_reviews_view(request):
 
         # For each element of serialized_data, append the review data to cleaned_data, ignoring Django's internal info.
         for review in serialized_data:
-            cleaned_data.append(review["fields"])
+            cleaned_data.append(clean_serialized_review_data(review))
 
         book_reviews[title] = cleaned_data
 
     # Return all the Reviews organized by User.
     return JsonResponse(book_reviews, safe=False, status=200)
+
+def clean_serialized_review_data(serialized_review_data):
+    """
+    Given an element of the data serialized from a QuerySet of Review objects,
+    this function returns a Python dictionary with the review's data.
+    """
+    # Get only the review data.
+    review_data = serialized_review_data["fields"]
+
+    # Add the review ID to the data.
+    review_data["id"] = serialized_review_data["pk"]
+
+    # Add the review owner's full name to the data.
+    owner = User.objects.get(id=review_data["owner"])
+    review_data["name"] = owner.first_name + " " + owner.last_name
+
+    # Add the book information to the data.
+    book = Book.objects.get(id=review_data["book"])
+    # Convert the Book object to a Python dictionary.
+    book = BookSerializer(book).data
+    review_data["book"] = book
+
+    return review_data
 

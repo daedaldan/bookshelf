@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Navigate } from 'react-router-dom';
 
-import AuthService from '../../services/auth.service.js';
+import AuthService from '../../services/AuthService.js';
 
 // Route that renders component only if user is authenticated, otherwise redirects to Login component
 const PrivateRoute = ({ component: Component, ...rest }) => {

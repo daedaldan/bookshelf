@@ -9,7 +9,7 @@ import Register from './components/Authentication/Register.js';
 import Logout from './components/Authentication/Logout.js';
 
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.js';
-import AuthService from './services/auth.service.js';
+import AuthService from './services/AuthService.js';
 
 class App extends Component {
   constructor(props) {

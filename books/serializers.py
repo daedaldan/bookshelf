@@ -43,7 +43,7 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ('id', 'title', 'author', 'year', 'genre', 'description')
+        fields = ('id', 'title', 'author', 'year', 'genre', 'description', 'cover')
 
 class ReviewSerializer(serializers.ModelSerializer):
     """
@@ -91,12 +91,13 @@ class ReviewSerializer(serializers.ModelSerializer):
                                            author=book_data["author"],
                                            year=book_data["year"],
                                            genre=book_data["genre"],
-                                           description=book_data["description"])
+                                           description=book_data["description"],
+                                           cover=book_data["cover"])
 
             # Create the review.
             review = Review(title=validated_data["title"],
                             description=validated_data["description"],
-                            date=validated_dated["date"],
+                            date=validated_date["date"],
                             owner=self.context["request"].user,
                             book=new_book)
             review.save()
