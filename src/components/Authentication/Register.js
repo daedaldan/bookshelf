@@ -48,7 +48,7 @@ const validPassword = value => {
  * This component provides a form for the user to register a new account by
  * providing their full name, email, username, and password.
  */
-class Register extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -162,12 +162,7 @@ class Register extends Component {
 
   render() {
       return (
-          <form
-              onSubmit={this.handleRegister}
-              ref={c => {
-                this.form = c;
-              }}
-          >
+          <form onSubmit={this.handleRegister}>
             {/* Check if successful registration has already occurred before showing form inputs.*/}
             {!this.state.successful && (<div>
                 <label htmlFor="firstName">First Name</label>
@@ -222,5 +217,3 @@ class Register extends Component {
       );
     }
 }
-
-export default Register;

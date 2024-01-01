@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import AuthService from '../../services/AuthService.js';
+import Register from "./Register";
 
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
@@ -15,7 +16,7 @@ const required = value => {
  * This component provides a form for the user to login to their account by
  * providing their username and password.
  */
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -87,12 +88,7 @@ class Login extends Component {
 
   render() {
       return (
-          <form
-              onSubmit={this.handleLogin}
-              ref={c => {
-                this.form = c;
-              }}
-          >
+          <form onSubmit={this.handleLogin}>
             <label htmlFor="username">Username</label>
             <input
                 type="text"
@@ -119,5 +115,3 @@ class Login extends Component {
       );
     }
 }
-
-export default Login;
