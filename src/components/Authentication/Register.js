@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
-import CheckButton from 'react-validation/build/button';
+
 import isEmail from 'validator/lib/isEmail';
 
 import AuthService from '../../services/AuthService.js';
@@ -9,56 +7,41 @@ import AuthService from '../../services/AuthService.js';
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
   if (!value) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          This field is required.
-        </div>
-    );
+    return alert("This field is required.");
   }
+  return true;
 };
 
 // Used to check whether the user's email is valid.
 const validEmail = value => {
   if (!isEmail(value)) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          This is not a valid email.
-        </div>
-    );
+    return alert("This is not a valid email.");
   }
+  return true;
 };
 
 // Used to check whether the user's first or last name is valid.
 const validName = value => {
-  if (value.length < 1) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          Your name must be at least 1 character long.
-        </div>
-    );
+  if (value.length < 1 || value.length > 20) {
+    return alert("Your first and last name must each be between 1 and 20 characters.");
   }
+  return true;
 };
 
 // Used to check whether the user's username is valid.
 const validUsername = value => {
   if (value.length < 5 || value.length > 20) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          The username must be between 5 and 20 characters.
-        </div>
-    );
+    return alert("The username must be between 5 and 20 characters.");
   }
+  return true;
 };
 
 // Used to check whether the user's password is valid.
 const validPassword = value => {
   if (value.length < 8 || value.length > 40) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          The password must be between 8 and 40 characters.
-        </div>
-    );
+    return alert("The password must be between 8 and 40 characters.");
   }
+  return true;
 };
 
 /**
@@ -124,10 +107,16 @@ class Register extends Component {
       successful: false
     });
 
-    this.form.validateAll();
-
-    // If no errors occurred, register the user based on the form inputs.
-    if (this.checkBtn.context._errors.length === 0) {
+    if (required(this.state.email) &&
+        required(this.state.username) &&
+        required(this.state.firstName) &&
+        required(this.state.lastName) &&
+        required(this.state.password) &&
+        validEmail(this.state.email) &&
+        validName(this.state.firstName) &&
+        validName(this.state.lastName) &&
+        validUsername(this.state.username) &&
+        validPassword(this.state.password)) {
       AuthService.register(
           this.state.email,
           this.state.username,
@@ -168,11 +157,12 @@ class Register extends Component {
           }
       );
     }
+
   }
 
   render() {
       return (
-          <Form
+          <form
               onSubmit={this.handleRegister}
               ref={c => {
                 this.form = c;
@@ -181,7 +171,7 @@ class Register extends Component {
             {/* Check if successful registration has already occurred before showing form inputs.*/}
             {!this.state.successful && (<div>
                 <label htmlFor="firstName">First Name</label>
-                <Input
+                <input
                     type="text"
                     name="firstName"
                     value={this.state.firstName}
@@ -190,7 +180,7 @@ class Register extends Component {
                 />
 
                 <label htmlFor="username">Last Name</label>
-                <Input
+                <input
                     type="text"
                     name="lastName"
                     value={this.state.lastName}
@@ -199,7 +189,7 @@ class Register extends Component {
                 />
 
                 <label htmlFor="username">Email</label>
-                <Input
+                <input
                     type="text"
                     name="email"
                     value={this.state.email}
@@ -208,7 +198,7 @@ class Register extends Component {
                 />
 
                 <label htmlFor="username">Username</label>
-                <Input
+                <input
                     type="text"
                     name="username"
                     value={this.state.username}
@@ -217,7 +207,7 @@ class Register extends Component {
                 />
 
                 <label htmlFor="password">Password</label>
-                <Input
+                <input
                     type="password"
                     name="password"
                     value={this.state.password}
@@ -235,15 +225,7 @@ class Register extends Component {
             {this.state.message && (
                 <p style={{marginTop: 20}}>this.state.message</p>
             )}
-
-            {/* CheckButton is used to check for errors with the form and is not displayed. */}
-            <CheckButton
-                style={{ display: "none" }}
-                    ref={c => {
-                      this.checkBtn = c;
-                    }}
-            />
-          </Form>
+          </form>
       );
     }
 }

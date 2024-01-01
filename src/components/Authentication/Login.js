@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
-import CheckButton from 'react-validation/build/button';
 
 import AuthService from '../../services/AuthService.js';
 
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
-  if (!value) {
-    return (
-        <div style={{marginTop: -20, marginBottom: 20}}>
-          This field is required.
-        </div>
-    );
+  if (value) {
+    return true;
+  } else {
+    alert("This field is required.");
   }
 };
 
@@ -22,19 +17,16 @@ const required = value => {
  */
 class Login extends Component {
   constructor(props) {
-    console.log("#1");
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    console.log("#2");
     this.state = {
       username: "",
       password: "",
       loading: false,
       message: ""
     }
-    console.log("#3");
   }
 
   onChangeUsername(e) {
@@ -57,11 +49,8 @@ class Login extends Component {
       loading: true
     });
 
-    this.form.validateAll();
-
-    // If no errors occurred, log in the user based on the form inputs.
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
+    if (required(this.state.username) && required(this.state.password)) {
+       AuthService.login(this.state.username, this.state.password).then(
           // If the login is successful, redirect the user to the Home page.
           () => {
             this.props.history.push('/browse');
@@ -89,7 +78,7 @@ class Login extends Component {
             }
           }
       );
-    } else { // If the form validation is unsuccessful, do nothing.
+    } else { // If form validation is unsuccessful, allow the user to resubmit the form.
       this.setState({
         loading: false
       });
@@ -98,28 +87,26 @@ class Login extends Component {
 
   render() {
       return (
-          <Form
+          <form
               onSubmit={this.handleLogin}
               ref={c => {
                 this.form = c;
               }}
           >
             <label htmlFor="username">Username</label>
-            <Input
+            <input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.onChangeUsername}
-                validations={[required]}
             />
 
             <label htmlFor="password">Password</label>
-            <Input
+            <input
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.onChangePassword}
-                validations={[required]}
             />
 
             <button disabled={this.state.loading}>
@@ -130,15 +117,7 @@ class Login extends Component {
             {this.state.message && (
                 <p style={{marginTop: 20}}>this.state.message</p>
             )}
-
-            {/* CheckButton is used to check for errors with the form and is not displayed. */}
-            <CheckButton
-                style={{ display: "none" }}
-                    ref={c => {
-                      this.checkBtn = c;
-                    }}
-            />
-          </Form>
+          </form>
       );
     }
 }

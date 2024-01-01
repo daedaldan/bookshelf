@@ -6,9 +6,9 @@ export default class Person extends Component {
     this.state = {}
   }
 
-  render (){
+  render () {
     return(
-        <p>Hello</p>
+        <p>Person</p>
     );
   }
 }
