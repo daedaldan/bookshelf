@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Navigate} from "react-router-dom";
 import isEmail from 'validator/lib/isEmail';
 
 import AuthService from '../../services/AuthService.js';
@@ -65,6 +65,7 @@ export default class Register extends Component {
       username: "",
       password: "",
       successful: false,
+      redirect: false,
       message: ""
     }
   }
@@ -128,11 +129,9 @@ export default class Register extends Component {
           response => {
             this.setState({
               message: response.data.message,
+              redirect: true,
               successful: true
             });
-
-            this.props.history.push('/login');
-            window.location.reload();
           },
           // If any errors occur, show the error message(s).
           error => {
@@ -161,6 +160,10 @@ export default class Register extends Component {
   }
 
   render() {
+      if (this.state.redirect) {
+        return <Navigate to='/login' />;
+      }
+
       return (
           <form onSubmit={this.handleRegister}>
             {/* Check if successful registration has already occurred before showing form inputs.*/}

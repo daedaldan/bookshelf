@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import {Navigate} from "react-router-dom";
 
 import AuthService from '../../services/AuthService.js';
-import Register from "./Register";
 
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
@@ -25,6 +25,7 @@ export default class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      redirect: false,
       loading: false,
       message: ""
     }
@@ -54,8 +55,7 @@ export default class Login extends Component {
        AuthService.login(this.state.username, this.state.password).then(
           // If the login is successful, redirect the user to the Home page.
           () => {
-            this.props.history.push('/browse');
-            window.location.reload();
+            this.setState({redirect: true});
           },
           // If any errors occur, show the error message(s).
           error => {
@@ -87,6 +87,10 @@ export default class Login extends Component {
   }
 
   render() {
+      if (this.state.redirect) {
+        return <Navigate to='/browse' />
+      }
+
       return (
           <form onSubmit={this.handleLogin}>
             <label htmlFor="username">Username</label>

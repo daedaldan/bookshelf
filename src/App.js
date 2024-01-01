@@ -94,8 +94,8 @@ class App extends Component {
           {/* Use Routes to render Route that matches current URL path. */}
           <Routes>
             <Route exact path='/' element={<LandingPage/>} />
-            <Route exact path='/browse' element={<PrivateRoute><Browse/></PrivateRoute>} />
-            <Route exact path='/profile' element={<PrivateRoute><Profile/></PrivateRoute>} />
+            <Route exact path='/browse' element={<PrivateRoute element={<Browse/>}/>} />
+            <Route exact path='/profile' element={<PrivateRoute element={<Profile/>}/>} />
             <Route exact path='/login' element={<Login/>} />
             <Route exact path='/register' element={<Register/>} />
           </Routes>
