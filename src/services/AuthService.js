@@ -11,7 +11,7 @@ class AuthService {
   login(username, password) {
     // Send POST request to backend to generate token.
     return axios
-        .post(API_URL + "token-auth/", {
+        .post(API_URL + "token_auth/", {
           username: username,
           password: password
         })
