@@ -131,7 +131,7 @@ class Register extends Component {
               successful: true
             });
 
-            this.props.history.push('/browse');
+            this.props.history.push('/login');
             window.location.reload();
           },
           // If any errors occur, show the error message(s).
@@ -176,7 +176,6 @@ class Register extends Component {
                     name="firstName"
                     value={this.state.firstName}
                     onChange={this.onChangeFirstName}
-                    validations={[required, validName]}
                 />
 
                 <label htmlFor="username">Last Name</label>
@@ -185,7 +184,6 @@ class Register extends Component {
                     name="lastName"
                     value={this.state.lastName}
                     onChange={this.onChangeLastName}
-                    validations={[required, validName]}
                 />
 
                 <label htmlFor="username">Email</label>
@@ -194,7 +192,6 @@ class Register extends Component {
                     name="email"
                     value={this.state.email}
                     onChange={this.onChangeEmail}
-                    validations={[required, validEmail]}
                 />
 
                 <label htmlFor="username">Username</label>
@@ -203,7 +200,6 @@ class Register extends Component {
                     name="username"
                     value={this.state.username}
                     onChange={this.onChangeUsername}
-                    validations={[required, validUsername]}
                 />
 
                 <label htmlFor="password">Password</label>
@@ -212,7 +208,6 @@ class Register extends Component {
                     name="password"
                     value={this.state.password}
                     onChange={this.onChangePassword}
-                    validations={[required, validPassword]}
                 />
 
                 <button>
@@ -222,9 +217,7 @@ class Register extends Component {
             )}
 
             {/* Show message(s), if any exist. */}
-            {this.state.message && (
-                <p style={{marginTop: 20}}>this.state.message</p>
-            )}
+            {this.state.message ? this.state.message : ""}
           </form>
       );
     }

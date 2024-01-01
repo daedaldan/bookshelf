@@ -114,9 +114,7 @@ class Login extends Component {
             </button>
 
             {/* Show message(s), if any exist. */}
-            {this.state.message && (
-                <p style={{marginTop: 20}}>this.state.message</p>
-            )}
+            {this.state.message ? this.state.message : ""}
           </form>
       );
     }
