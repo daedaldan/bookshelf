@@ -10,11 +10,7 @@ import AuthService from '../../services/AuthService.js';
 const PrivateRoute = ({ element, ...rest }) => {
     const isAuthenticated = AuthService.getCurrentUser();
 
-    return isAuthenticated ? (
-            <Route {...rest} element={element}/>
-        ) : (
-            <Navigate to='/login' />
-        );
+    return isAuthenticated ? element: <Navigate to='/login' />;
 };
 
 export default PrivateRoute;
