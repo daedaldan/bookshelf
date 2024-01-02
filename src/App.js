@@ -3,8 +3,13 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
 import LandingPage from './components/LandingPage/LandingPage.js';
+
 import Browse from './components/Browse/Browse.js';
+import Book from './components/Browse/Books/Book.js';
+import Person from './components/Browse/People/Person.js';
+
 import Profile from './components/Profile/Profile.js';
+
 import Login from './components/Authentication/Login.js';
 import Register from './components/Authentication/Register.js';
 import Logout from './components/Authentication/Logout.js';
@@ -95,6 +100,8 @@ class App extends Component {
           <Routes>
             <Route exact path='/' element={<LandingPage/>} />
             <Route exact path='/browse' element={<PrivateRoute element={<Browse/>}/>} />
+            <Route exact path='/book' element={<PrivateRoute element={<Book/>}/>} />
+            <Route exact path='/person' element={<PrivateRoute element={<Person/>}/>} />
             <Route exact path='/profile' element={<PrivateRoute element={<Profile/>}/>} />
             <Route exact path='/login' element={<Login/>} />
             <Route exact path='/register' element={<Register/>} />

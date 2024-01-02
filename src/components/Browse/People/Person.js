@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default class Person extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
+/**
+ * Person is a component that displays all of the information for a certain person,
+ * as well as all of the reviews written by that person.
+ */
+export default function Person () {
+  const location = useLocation();
+  const receivedProps = location.state;
 
-  render () {
-    return(
-        <p>Person</p>
-    );
-  }
-}
+  return (
+      <div className="person">
+        <h3>{receivedProps.person.name}</h3>
+        <p>{receivedProps.person.numReviews + "reviews"}</p>
+      </div>
+  );
+};

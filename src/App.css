@@ -1,4 +1,4 @@
-/* Website */
+/* LandingPage */
 h1, h2, h3 {
    font-family: 'Georgia', serif;
 }
@@ -58,7 +58,7 @@ li {
 	margin-left: 20px;
 }
 
-/* Form */
+/* Forms */
 input {
   border: none;
   border-radius: 5px;
@@ -99,37 +99,40 @@ button:active {
 }
 
 @media (min-width: 767px) {
-  #reviews {
+  #reviews, #books, #people {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
     grid-gap: 10px;
   }
 
-  .review {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    box-shadow: 0 0 10px gray;
-    margin-bottom: 2%;
-    padding: 2%;
+  .review, .book-preview, .person-preview {
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 10px gray;
+      margin-bottom: 2%;
+      padding: 2%;
   }
 }
 
 @media (max-width: 767px) {
-  .review {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: 10px;
-    box-shadow: 0 0 10px gray;
-    margin-bottom: 2%;
-    padding: 2%;
+  .review, .book-preview, .person-preview  {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+      margin-bottom: 2%;
+      padding: 2%;
   }
 
   input[type=text] {
     width: 90%;
     margin: 2% 0;
   }
+}
+
+.book-preview:hover, .person-preview:hover {
+    opacity: 0.8;
 }
 
 .secondary-info {
