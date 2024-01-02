@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import Review from "../Reviews/Review.js";
 
 /**
  * Book is a component that displays all of the information for a certain book,
@@ -18,7 +19,11 @@ export default function Book() {
         <img src={receivedProps.book.cover} alt={"book cover for " + receivedProps.book.title}/>
 
         <h3>Reviews</h3>
-        <p>{receivedProps.reviews}</p>
+        <div id="reviews">
+          {receivedProps.book.reviews.map((review, index) => (
+              <Review key={index} review={review}/>
+          ))}
+        </div>
       </div>
   );
 };

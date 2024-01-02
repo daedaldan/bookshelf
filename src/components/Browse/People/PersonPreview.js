@@ -1,4 +1,3 @@
-import React from 'react';
 import {useNavigate} from "react-router-dom";
 
 /**
@@ -11,6 +10,9 @@ import {useNavigate} from "react-router-dom";
 export default function PersonPreview (props) {
   const navigate = useNavigate();
 
+  /**
+   * When the book preview is clicked on, navigate to a separate page for the person.
+   */
   const handleClick = () => {
     const propsToPass = { person: props.person };
     navigate('/person', { state: propsToPass });

@@ -1,4 +1,3 @@
-import React from 'react';
 import BookPreview from './BookPreview.js';
 
 /**
@@ -12,7 +11,9 @@ export default function Books (props) {
    // For each book in the database, if it has at least one review, display it.
    for (let title in props.books) {
      if (props.books[title].length > 0) {
-      bookData.push(props.books[title][0]["book"]);
+       let book = props.books[title][0]["book"];
+       book.reviews = props.books[title];
+       bookData.push(book);
      }
    }
 
@@ -21,7 +22,7 @@ export default function Books (props) {
         <h1>Books</h1>
         <div id="books">
           {bookData.map((book, index) => (
-              <BookPreview key={index} book={book} reviews={props.books}/>
+              <BookPreview key={index} book={book}/>
           ))}
         </div>
       </div>

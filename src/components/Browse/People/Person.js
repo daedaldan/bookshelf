@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import BookshelfItem from "../Books/BookshelfItem";
 
 /**
  * Person is a component that displays all of the information for a certain person,
@@ -11,7 +12,12 @@ export default function Person () {
   return (
       <div className="person">
         <h3>{receivedProps.person.name}</h3>
-        <p>{receivedProps.person.numReviews + "reviews"}</p>
+        <p>{receivedProps.person.numReviews + " reviews"}</p>
+        <div id="books">
+          {receivedProps.person.books.map((book, index) => (
+              <BookshelfItem key={index} book={book}/>
+          ))}
+        </div>
       </div>
   );
 };
