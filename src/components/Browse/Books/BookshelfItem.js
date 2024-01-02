@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import UserService from '../../../services/UserService.js';
 
 /**
- * BookshelfItem is a component that displays a preview of the information for a book,
- * such as the title, author, and description.
+ * BookshelfItem is a component that displays a preview of a review with
+ * the information for the book, such as the title, author, and description.
  *
  * When clicked upon, BookshelfItem displays a modal that contains the review information.
  */
@@ -15,25 +16,37 @@ export default class BookshelfItem extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.deleteReview = this.deleteReview.bind(this);
   }
 
   /**
    * When the book preview is clicked on, display the review as a modal.
    */
-  openModal = () => {
+  openModal() {
     this.setState({ showReviewModal: true });
-    console.log(this.state);
   };
 
   /**
    * Hide the review modal when the close icon is clicked.
    */
-  closeModal = (e) => {
+  closeModal(e) {
     // Prevent the click event from propagating to the parent div.
     e.stopPropagation();
     this.setState({ showReviewModal: false });
-    console.log(this.state);
   };
+
+  /**
+   * Deletes the review this component is associated with.
+   */
+  async deleteReview() {
+    // Hide the review modal.
+    this.setState({ showReviewModal: false });
+
+    // Delete the review and update the user profile.
+    await UserService.deleteReview(this.props.book.review.id).then(response => {
+        this.props.updateProfile();
+    });
+  }
 
   render() {
     return (
@@ -55,6 +68,11 @@ export default class BookshelfItem extends Component {
               <h3>{this.props.book.title + " by " + this.props.book.author}</h3>
               <h4>{"Written " + this.props.book.review.date}</h4>
               <p>{this.props.book.review.description}</p>
+              {this.props.book.canDelete && (
+                  <button className="delete" onClick={this.deleteReview}>
+                    Delete
+                  </button>
+              )}
             </dialog>
         )}
       </div>

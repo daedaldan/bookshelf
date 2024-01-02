@@ -11,7 +11,7 @@ export default function People(props) {
    // For each person in the database, if they have at least one review, display the person's info.
    for (let username in props.people) {
      if (props.people[username].length > 0) {
-       // Initialize a person object with their name, books, reviews, and number of reviews.
+       // Initialize a person object with their name, books, and reviews.
        let person = {}
        // Add the person's name.
        person.name = props.people[username][0]["name"];
@@ -25,6 +25,9 @@ export default function People(props) {
          let book = props.people[username][reviewNum].book;
          // Add the person's review as part of the book object.
          book.review = props.people[username][reviewNum];
+         // By default, a review cannot be deleted from the BookshelfItem modal.
+         book.canDelete = false;
+
          // Add the book to the list.
          bookData.push(book);
        }
