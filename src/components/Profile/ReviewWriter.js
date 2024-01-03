@@ -47,7 +47,7 @@ export default class ReviewWriter extends Component {
       book.year = rawBooks[bookNum].first_publish_year.toString();
       // Get the first subject.
       book.genre = (rawBooks[bookNum].subject.length > 0) ? rawBooks[bookNum].subject[0] : "No Genre";
-      book.description = rawBooks[bookNum].subtitle ? rawBooks[bookNum].subtitle : "";
+      book.description = rawBooks[bookNum].subtitle ? rawBooks[bookNum].subtitle : "No Description";
       // Add the book's ID for ReactSearchAutocomplete.
       book.id = bookNum;
       // Create the book cover URL using the Open Library Cover API URL.
@@ -125,6 +125,7 @@ export default class ReviewWriter extends Component {
         // Reset the form's state.
         this.setState({
           reviewTitle: "",
+          reviewDate: "",
           reviewDescription: "",
           searchInput: "",
           booksFound: [],
