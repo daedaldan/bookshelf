@@ -118,11 +118,13 @@ class UserService {
    * @param bookLimit the maximum number of books that will be returned
    */
   async searchBooks(searchText, bookLimit) {
-    console.log(LIBRARY_API_URL +  searchText.trim().split(' ').join('+'));
     let rawResponse = await axios
         .get(
             LIBRARY_API_URL +  searchText.trim().split(' ').join('+')
         );
+
+    // Log response URL in console
+     console.log("Request sent to: " + LIBRARY_API_URL +  searchText.trim().split(' ').join('+'));
 
     // Create an array to store the books that will be returned.
     let bookResults = [];

@@ -36,7 +36,7 @@ export default class ReviewWriter extends Component {
     });
 
     // Get the raw book information from the Open Library Search API.
-    let rawBooks = await UserService.searchBooks(this.state.searchInput, 50);
+    let rawBooks = await UserService.searchBooks(this.state.searchInput, 10);
 
     // Create an array to store the cleaned book information.
     let cleanedBooks = [];
