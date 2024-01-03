@@ -1,184 +1,184 @@
-/* LandingPage */
-h1, h2, h3 {
-   font-family: 'Georgia', serif;
-}
+/*!* LandingPage *!*/
+/*h1, h2, h3 {*/
+/*   font-family: 'Georgia', serif;*/
+/*}*/
 
-body {
-  font-family: 'Helvetica', sans-serif;
-    width: 100%;
-	height: 100%;
-	margin: 0;
-	padding-left: 30px;
-	overflow-x: hidden;
-}
+/*body {*/
+/*  font-family: 'Helvetica', sans-serif;*/
+/*    width: 100%;*/
+/*	height: 100%;*/
+/*	margin: 0;*/
+/*	padding-left: 30px;*/
+/*	overflow-x: hidden;*/
+/*}*/
 
-#main {
-  margin: 5%;
-}
+/*#main {*/
+/*  margin: 5%;*/
+/*}*/
 
-/* Navbar */
-@media (max-width: 767px) {
-	nav {
-		width: 100%;
-		padding: 20px 30px 20px 0;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+/*!* Navbar *!*/
+/*@media (max-width: 767px) {*/
+/*	nav {*/
+/*		width: 100%;*/
+/*		padding: 20px 30px 20px 0;*/
+/*		display: flex;*/
+/*		flex-direction: column;*/
+/*		align-items: center;*/
+/*		justify-content: center;*/
+/*	}*/
 
-	#logo {
-		margin-bottom: 10px;
-	}
-}
+/*	#logo {*/
+/*		margin-bottom: 10px;*/
+/*	}*/
+/*}*/
 
-@media (min-width: 767px) {
-	nav {
-		width: 100%;
-		padding: 20px 30px 20px 0;
-		display: flex;
-		justify-content: space-between;
-	}
-}
+/*@media (min-width: 767px) {*/
+/*	nav {*/
+/*		width: 100%;*/
+/*		padding: 20px 30px 20px 0;*/
+/*		display: flex;*/
+/*		justify-content: space-between;*/
+/*	}*/
+/*}*/
 
-#logo {
-	font-size: 20px;
-    background: #E15E40;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+/*#logo {*/
+/*	font-size: 20px;*/
+/*    background: #E15E40;*/
+/*    -webkit-background-clip: text;*/
+/*    -webkit-text-fill-color: transparent;*/
+/*}*/
 
-ul {
-  	list-style-type: none;
-  	padding: 0;
-}
+/*ul {*/
+/*  	list-style-type: none;*/
+/*  	padding: 0;*/
+/*}*/
 
-li {
-  	float: right;
-	margin-left: 20px;
-}
+/*li {*/
+/*  	float: right;*/
+/*	margin-left: 20px;*/
+/*}*/
 
-/* Forms */
-input {
-  border: none;
-  border-radius: 5px;
-  margin: 1% 0;
-  padding: 1%;
-  box-shadow: 0 0 5px gray;
-  font-size: 0.8em;
-  -webkit-appearance: none;
-}
+/*!* Forms *!*/
+/*input {*/
+/*  border: none;*/
+/*  border-radius: 5px;*/
+/*  margin: 1% 0;*/
+/*  padding: 1%;*/
+/*  box-shadow: 0 0 5px gray;*/
+/*  font-size: 0.8em;*/
+/*  -webkit-appearance: none;*/
+/*}*/
 
-input[type=checkbox] {
-  border: solid;
-  margin: 0.5%;
-  appearance: auto;
-}
+/*input[type=checkbox] {*/
+/*  border: solid;*/
+/*  margin: 0.5%;*/
+/*  appearance: auto;*/
+/*}*/
 
-button {
-  padding: 1%;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  background: #ED7559;
-  margin-top: 2%;
-  box-shadow: 0 0 2px gray;
-}
+/*button {*/
+/*  padding: 1%;*/
+/*  border: none;*/
+/*  border-radius: 5px;*/
+/*  font-size: 15px;*/
+/*  background: #ED7559;*/
+/*  margin-top: 2%;*/
+/*  box-shadow: 0 0 2px gray;*/
+/*}*/
 
-button:hover {
-  color: #5A5A5A;
-}
+/*button:hover {*/
+/*  color: #5A5A5A;*/
+/*}*/
 
-button:active {
-  background: #E46A4D;
-}
+/*button:active {*/
+/*  background: #E46A4D;*/
+/*}*/
 
-/* Bookshelf */
-#bookshelf {
-  margin-top: 3%;
-}
+/*!* Bookshelf *!*/
+/*#bookshelf {*/
+/*  margin-top: 3%;*/
+/*}*/
 
-@media (min-width: 767px) {
-  #reviews, #books, #people {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-    grid-gap: 10px;
-  }
+/*@media (min-width: 767px) {*/
+/*  #reviews, #books, #people {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));*/
+/*    grid-gap: 10px;*/
+/*  }*/
 
-  .review, .book-preview, .person-preview {
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 10px gray;
-      margin-bottom: 2%;
-      padding: 2%;
-  }
-}
+/*  .review, .book-preview, .person-preview {*/
+/*      display: flex;*/
+/*      flex-direction: column;*/
+/*      box-shadow: 0 0 10px gray;*/
+/*      margin-bottom: 2%;*/
+/*      padding: 2%;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 767px) {
-  .review, .book-preview, .person-preview  {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      border-radius: 10px;
-      box-shadow: 0 0 10px gray;
-      margin-bottom: 2%;
-      padding: 2%;
-  }
+/*@media (max-width: 767px) {*/
+/*  .review, .book-preview, .person-preview  {*/
+/*      display: flex;*/
+/*      flex-direction: column;*/
+/*      align-items: flex-start;*/
+/*      border-radius: 10px;*/
+/*      box-shadow: 0 0 10px gray;*/
+/*      margin-bottom: 2%;*/
+/*      padding: 2%;*/
+/*  }*/
 
-  input[type=text] {
-    width: 90%;
-    margin: 2% 0;
-  }
-}
+/*  input[type=text] {*/
+/*    width: 90%;*/
+/*    margin: 2% 0;*/
+/*  }*/
+/*}*/
 
-.book-preview:hover, .person-preview:hover {
-    opacity: 0.8;
-}
+/*.book-preview:hover, .person-preview:hover {*/
+/*    opacity: 0.8;*/
+/*}*/
 
-.secondary-info {
-  margin-top: auto;
-}
+/*.secondary-info {*/
+/*  margin-top: auto;*/
+/*}*/
 
-img {
-  width: 100%;
-  height: 30%;
-  object-fit: cover;
-}
+/*img {*/
+/*  width: 100%;*/
+/*  height: 30%;*/
+/*  object-fit: cover;*/
+/*}*/
 
-.tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  word-wrap: break-word;
-  border-radius: 10%;
-  background: #d5ebf5;
-  margin: 1% 1% 1% 0;
-  padding: 3%;
-  -webkit-hyphens: auto;
-}
+/*.tag {*/
+/*  display: inline-flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  flex-wrap: wrap;*/
+/*  word-wrap: break-word;*/
+/*  border-radius: 10%;*/
+/*  background: #d5ebf5;*/
+/*  margin: 1% 1% 1% 0;*/
+/*  padding: 3%;*/
+/*  -webkit-hyphens: auto;*/
+/*}*/
 
-a {
-  margin-top: auto;
-  text-decoration: none;
-  color: #4db6e3;
-}
+/*a {*/
+/*  margin-top: auto;*/
+/*  text-decoration: none;*/
+/*  color: #4db6e3;*/
+/*}*/
 
-a:visited {
-  color: #4db6e3;
-}
+/*a:visited {*/
+/*  color: #4db6e3;*/
+/*}*/
 
-a:hover {
-  color: #a4cee0;
-}
+/*a:hover {*/
+/*  color: #a4cee0;*/
+/*}*/
 
-/* Footer */
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  padding: 20px 0px 20px 30px;
-  text-align: right;
-}
+/*!* Footer *!*/
+/*footer {*/
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  width: 100%;*/
+/*  padding: 20px 0px 20px 30px;*/
+/*  text-align: right;*/
+/*}*/

@@ -29,7 +29,7 @@ export default class ReviewWriter extends Component {
    */
   async updateBooksFound() {
     // Get the raw book information from the Open Library Search API.
-    let rawBooks = await UserService.searchBook(this.state.searchInput);
+    let rawBooks = await UserService.searchBooks(this.state.searchInput, 50);
 
     console.log("API data returned.");
 
@@ -58,7 +58,10 @@ export default class ReviewWriter extends Component {
     }
 
     // Update the state.
-    this.setState({ booksFound : cleanedBooks });
+    this.setState({ booksFound : cleanedBooks }, () => {
+      console.log("updateBooks");
+      console.log(this.state.booksFound);
+    });
   }
 
   /**
@@ -139,12 +142,14 @@ export default class ReviewWriter extends Component {
    * @param string
    * @param results
    */
-  handleOnSearch(string, results) {
+  handleOnSearch(search, results) {
     // Update the search input state.
-    this.setState({ searchInput: string });
+    this.setState({ searchInput: search });
 
     // Update the books found based on the new search input state.
     this.updateBooksFound();
+    console.log("handleSearchChange");
+    console.log(this.state.booksFound);
   }
 
   /**
@@ -152,6 +157,7 @@ export default class ReviewWriter extends Component {
    * @param item
    */
   handleOnSelect(item) {
+    console.log("handleOnSelect");
     console.log(item);
 
     this.setState({ selectedItem: item }, () =>{
@@ -166,10 +172,7 @@ export default class ReviewWriter extends Component {
    */
   formatResult(item) {
     return (
-      <div className="result-wrapper">
-        <span className="result-span">{item.title}</span>
-        <span className="result-span">{item.author}</span>
-      </div>
+        <div className="result">{item.title + " by " + item.author}</div>
     );
   };
 
@@ -180,6 +183,7 @@ export default class ReviewWriter extends Component {
           {/* ReactSearchAutocomplete is used for the book search bar. */}
           <ReactSearchAutocomplete
               items={this.state.booksFound}
+              inputSearchString={this.state.searchInput}
               onSearch={this.handleOnSearch}
               onSelect={this.handleOnSelect}
               formatResult={this.formatResult}

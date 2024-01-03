@@ -66,7 +66,7 @@ export default class BookshelfItem extends Component {
               </button>
               <h1>{this.props.book.review.title}</h1>
               <h3>{this.props.book.title + " by " + this.props.book.author}</h3>
-              <h4>{"Written " + this.props.book.review.date}</h4>
+              <h4>{"Read " + this.props.book.review.date}</h4>
               <p>{this.props.book.review.description}</p>
               {this.props.book.canDelete && (
                   <button className="delete" onClick={this.deleteReview}>

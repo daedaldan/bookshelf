@@ -111,19 +111,34 @@ class UserService {
 
   /**
    * Given a snippet of text, this function sends the text
-   * to the Open Library Search API to find the first 5 books that match
+   * to the Open Library Search API to find the first bookLimit books that match
    * the search text.
    *
    * @param searchText text sent to the Open Library Search API
+   * @param bookLimit the maximum number of books that will be returned
    */
-  async searchBook(searchText) {
+  async searchBooks(searchText, bookLimit) {
     let rawResponse = await axios
         .get(
             LIBRARY_API_URL +  searchText.trim().split(' ').join('+')
         );
 
+    // Create an array to store the books that will be returned.
+    let bookResults = [];
+
     if (rawResponse.data && rawResponse.data.docs) {
-      return rawResponse.data.docs.slice(0, 5);
+      let numBooks = bookLimit;
+      // If there are less than 5 books in the search results, return all of them.
+      if (rawResponse.data.docs.length < bookLimit) {
+        numBooks = rawResponse.data.docs.length;
+      }
+
+      // Add the books to the return array.
+      for (let bookNum = 0; bookNum < numBooks; bookNum++) {
+        bookResults.push(rawResponse.data.docs[bookNum]);
+      }
+
+      return bookResults;
     } else {
       console.log("Invalid response format.")
       return [];
