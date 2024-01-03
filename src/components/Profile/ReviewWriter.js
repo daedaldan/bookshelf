@@ -13,7 +13,7 @@ export default class ReviewWriter extends Component {
       booksFound: [],
       selectedBook: {},
       loading: false,
-      noBooksFound: false
+      noBooksFound: false,
     }
 
     this.handleReviewTitleChange = this.handleReviewTitleChange.bind(this);
@@ -24,6 +24,9 @@ export default class ReviewWriter extends Component {
     this.handleSelection = this.handleSelection.bind(this);
     this.formatSuggestion = this.formatSuggestion.bind(this);
     this.displaySuggestions = this.displaySuggestions.bind(this);
+
+    // Initialize a variable to store the timer for updating books
+    this.debounceTimer = null;
   }
 
   /**
@@ -161,8 +164,13 @@ export default class ReviewWriter extends Component {
       selectedBook: false
     });
 
-    // Update the books found based on the new search input state.
-    this.updateBooksFound();
+    // Clear the previous timer.
+    clearTimeout(this.debounceTimer);
+
+    // Update the books found based on the new search input state (only if the input hasn't been updated for 300 ms).
+    this.debounceTimer = setTimeout(() => {
+      this.updateBooksFound();
+    }, 300);
   }
 
   /**
