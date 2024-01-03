@@ -24,10 +24,11 @@ class App extends Component {
       currentUser: undefined
     };
 
+    this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
 
-  // Check whether user is logged in upon rendering page.
+  // Check whether user is logged in upon mounting page.
   componentDidMount() {
     const user = AuthService.getCurrentUser();
 
@@ -37,6 +38,15 @@ class App extends Component {
         currentUser: user
       });
     }
+  }
+
+  // Reset state of currentUser after logging in.
+  login() {
+    const user = AuthService.getCurrentUser();
+
+    this.setState({
+      currentUser: user
+    });
   }
 
   // Logout user using AuthService and reset state of currentUser to undefined.
@@ -103,7 +113,7 @@ class App extends Component {
             <Route exact path='/book' element={<PrivateRoute element={<Book/>}/>} />
             <Route exact path='/person' element={<PrivateRoute element={<Person/>}/>} />
             <Route exact path='/profile' element={<PrivateRoute element={<Profile/>}/>} />
-            <Route exact path='/login' element={<Login/>} />
+            <Route exact path='/login' element={<Login onLogin={this.login}/>} />
             <Route exact path='/register' element={<Register/>} />
           </Routes>
         </BrowserRouter>

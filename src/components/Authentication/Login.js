@@ -55,6 +55,7 @@ export default class Login extends Component {
        AuthService.login(this.state.username, this.state.password).then(
           // If the login is successful, redirect the user to the Home page.
           () => {
+            this.props.onLogin();
             this.setState({redirect: true});
           },
           // If any errors occur, show the error message(s).
