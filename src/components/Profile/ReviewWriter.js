@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 
 import UserService from '../../services/UserService.js';
 
@@ -12,26 +11,32 @@ export default class ReviewWriter extends Component {
       reviewDescription: "",
       searchInput: "",
       booksFound: [],
-      selectedItem: {}
+      selectedBook: {},
+      loading: false,
+      noBooksFound: false
     }
 
     this.handleReviewTitleChange = this.handleReviewTitleChange.bind(this);
     this.handleReviewDateChange = this.handleReviewDateChange.bind(this);
     this.handleReviewDescriptionChange = this.handleReviewDescriptionChange.bind(this);
     this.handleReviewSubmission = this.handleReviewSubmission.bind(this);
-    this.handleOnSearch = this.handleOnSearch.bind(this);
-    this.handleOnSelect = this.handleOnSelect.bind(this);
-    this.formatResult = this.formatResult.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
+    this.formatSuggestion = this.formatSuggestion.bind(this);
+    this.displaySuggestions = this.displaySuggestions.bind(this);
   }
 
   /**
    * Updates the book information from the Open Library Search API given the search input text.
    */
   async updateBooksFound() {
+    // Set the search bar loading state to true.
+    this.setState({
+      loading: true
+    });
+
     // Get the raw book information from the Open Library Search API.
     let rawBooks = await UserService.searchBooks(this.state.searchInput, 50);
-
-    console.log("API data returned.");
 
     // Create an array to store the cleaned book information.
     let cleanedBooks = [];
@@ -46,7 +51,7 @@ export default class ReviewWriter extends Component {
       book.author = rawBooks[bookNum].author_name[0];
       book.year = rawBooks[bookNum].first_publish_year.toString();
       // Get the first subject.
-      book.genre = (rawBooks[bookNum].subject.length > 0) ? rawBooks[bookNum].subject[0] : "No Genre";
+      book.genre = rawBooks[bookNum].subject ? rawBooks[bookNum].subject[0] : "No Genre";
       book.description = rawBooks[bookNum].subtitle ? rawBooks[bookNum].subtitle : "No Description";
       // Add the book's ID for ReactSearchAutocomplete.
       book.id = bookNum;
@@ -57,10 +62,11 @@ export default class ReviewWriter extends Component {
       cleanedBooks.push(book);
     }
 
-    // Update the state.
-    this.setState({ booksFound : cleanedBooks }, () => {
-      console.log("updateBooks");
-      console.log(this.state.booksFound);
+    // Update the cleanedBooks state and set the search bar loading state to false.
+    this.setState({
+      booksFound : cleanedBooks,
+      loading: false,
+      noBooksFound: (cleanedBooks.length === 0) ? true : false
     });
   }
 
@@ -135,46 +141,80 @@ export default class ReviewWriter extends Component {
           selectedItem: {}
         });
     });
+
+    // Close the review writer modal after submission.
+    this.props.closeModal();
   }
 
   /**
-   * Handles searches from ReactSearchAutocomplete input.
-   * @param string
-   * @param results
+   * When the user's search input changes, update the text displayed and books found in the backend.
    */
-  handleOnSearch(search, results) {
+  handleInputChange(e) {
     // Update the search input state.
-    this.setState({ searchInput: search });
+    this.setState({
+      searchInput: e.target.value
+    });
+
+    // If a book has already been selected, unselect it.
+    this.setState({
+      selectedItem: {},
+      selectedBook: false
+    });
 
     // Update the books found based on the new search input state.
     this.updateBooksFound();
-    console.log("handleSearchChange");
-    console.log(this.state.booksFound);
   }
 
   /**
-   * Handles state changes for ReactSearchAutocomplete input.
-   * @param item
+   * When the user selects a book suggestion, set it to the selected book,
+   * update the text displayed, and clear the book suggestions.
    */
-  handleOnSelect(item) {
-    console.log("handleOnSelect");
-    console.log(item);
-
-    this.setState({ selectedItem: item }, () =>{
-      console.log(this.state.selectedItem);
+  handleSelection(selectedBook) {
+    this.setState({
+      selectedItem: selectedBook,
+      searchInput: this.formatSuggestion(selectedBook),
+      booksFound: [],
+      noBooksFound: false,
+      selectedBook: true
     });
   }
 
   /**
-   * Returns HTML for how ReactSearchAutocomplete results are formatted.
-   * @param item
+   * Returns a string for how the search bar result is formatted.
+   * @param book
    * @returns {JSX.Element}
    */
-  formatResult(item) {
-    return (
-        <div className="result">{item.title + " by " + item.author}</div>
-    );
+  formatSuggestion(book) {
+    return book.title + " by " + book.author;
   };
+
+  /**
+   * Returns unordered list HTML for book suggestions
+   * @returns {JSX.Element} list of book suggestions
+   */
+  displaySuggestions() {
+    if (this.state.selectedBook) { // If the user has already selected a book, return nothing.
+      return (<div></div>);
+    } else if (!this.state.noBooksFound) {
+      return (
+        <ul className="suggestions-list">
+          {this.state.booksFound.map((book, index) => (
+            <li key={index} onClick={() => this.handleSelection(book)}>
+              {this.formatSuggestion(book)}
+            </li>
+          ))}
+        </ul>
+      );
+    } else {
+        return (
+            <ul className="suggestions-list">
+              <li>
+                No books found.
+              </li>
+            </ul>
+        );
+    }
+  }
 
   render() {
     return(
@@ -183,19 +223,21 @@ export default class ReviewWriter extends Component {
           <button className="close" onClick={this.props.closeModal}>
               &times;
           </button>
-          {/* ReactSearchAutocomplete is used for the book search bar. */}
-          <ReactSearchAutocomplete
-              items={this.state.booksFound}
-              inputSearchString={this.state.searchInput}
-              onSearch={this.handleOnSearch}
-              onSelect={this.handleOnSelect}
-              formatResult={this.formatResult}
-              fuseOptions={{ keys: ["title", "author"] }}
-              resultStringKeyName="title"
-          />
+
+          <div className="book-search">
+            <input
+              type="text"
+              value={this.state.searchInput}
+              onChange={this.handleInputChange}
+              placeholder="Search for a book"
+            />
+            {this.state.loading ? "Loading results..." : this.displaySuggestions()}
+            {}
+          </div>
+
           <textarea placeholder="Title" value={this.state.reviewTitle} onChange={this.handleReviewTitleChange} />
           <textarea placeholder="Date of Reading" value={this.state.reviewDate} onChange={this.handleReviewDateChange} />
-          <textarea placeholder="Your review here..." value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
+          <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
           <button onClick={this.handleReviewSubmission}>Publish</button>
         </dialog>
 
