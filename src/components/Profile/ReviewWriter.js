@@ -178,8 +178,11 @@ export default class ReviewWriter extends Component {
 
   render() {
     return(
-        <div className="review-writer">
+        <dialog open className="review-writer">
           <h2>Write a Review</h2>
+          <button className="close" onClick={this.props.closeModal}>
+              &times;
+          </button>
           {/* ReactSearchAutocomplete is used for the book search bar. */}
           <ReactSearchAutocomplete
               items={this.state.booksFound}
@@ -194,7 +197,7 @@ export default class ReviewWriter extends Component {
           <textarea placeholder="Date of Reading" value={this.state.reviewDate} onChange={this.handleReviewDateChange} />
           <textarea placeholder="Your review here..." value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
           <button onClick={this.handleReviewSubmission}>Publish</button>
-        </div>
+        </dialog>
 
     );
   }

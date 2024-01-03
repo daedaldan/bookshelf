@@ -15,11 +15,14 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       reviews: [],
-      books: []
+      books: [],
+      showReviewWriter: false
     };
 
     this.updateProfile = this.updateProfile.bind(this);
     this.updateBooks = this.updateBooks.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   async componentDidMount() {
@@ -70,11 +73,26 @@ export default class Profile extends Component {
       });
   }
 
+  /**
+   * When the review writer is opened, display it as a modal.
+   */
+  openModal() {
+    this.setState({ showReviewWriter: true });
+  };
+
+  /**
+   * Hide the review writer when the close icon is clicked.
+   */
+  closeModal(e) {
+    // Prevent the click event from propagating to the parent div.
+    e.stopPropagation();
+    this.setState({ showReviewWriter: false });
+  };
+
   render() {
     return(
         <div className="profile">
           <h1>Profile</h1>
-          <ReviewWriter updateProfile={this.updateProfile}/>
           <h2>My Bookshelf</h2>
           <div id="books">
             {(this.state.reviews.length === 0) && "You don't have any book reviews right now."}
@@ -82,6 +100,12 @@ export default class Profile extends Component {
               <BookshelfItem key={index} book={book} updateProfile={this.updateProfile}/>
             ))}
           </div>
+
+          {this.state.showReviewWriter && <ReviewWriter updateProfile={this.updateProfile} closeModal={this.closeModal}/>}
+
+          <button className="open-review-writer" onClick={this.openModal}>
+              Write a Review
+          </button>
         </div>
     );
   }
