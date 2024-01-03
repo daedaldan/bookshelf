@@ -74,8 +74,8 @@ export default class Profile extends Component {
     return(
         <div className="profile">
           <h1>Profile</h1>
-          <ReviewWriter/>
-          <h3>My Bookshelf</h3>
+          <ReviewWriter updateProfile={this.updateProfile}/>
+          <h2>My Bookshelf</h2>
           <div id="books">
             {(this.state.reviews.length === 0) && "You don't have any book reviews right now."}
             {this.state.books.map((book, index) => (

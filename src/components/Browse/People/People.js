@@ -45,6 +45,7 @@ export default function People(props) {
       <div>
         <h1>People</h1>
         <div id="people">
+          {(peopleData.length === 0) && "Nobody has written a review yet."}
           {peopleData.map((person, index) => (
             <PersonPreview key={index} person={person}/>
         ))}

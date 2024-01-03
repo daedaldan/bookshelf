@@ -21,6 +21,7 @@ export default function Books (props) {
       <div>
         <h1>Books</h1>
         <div id="books">
+          {(bookData.length === 0) && "There are no books right now."}
           {bookData.map((book, index) => (
               <BookPreview key={index} book={book}/>
           ))}

@@ -11,6 +11,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "^5.0.1",
+    "react-search-autocomplete": "^8.5.2",
     "react-validation": "^3.0.7",
     "react-validator": "^0.1.0",
     "validation": "^0.0.1",

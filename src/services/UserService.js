@@ -3,6 +3,8 @@ import authHeader from './AuthHeader';
 
 // URL for Django REST API backend
 const API_URL = 'http://127.0.0.1:8000/';
+// URL for Open Library Search API
+const LIBRARY_API_URL = 'https://openlibrary.org/search.json?q=';
 
 /**
  * The class UserService provides a set of services that allow the frontend to send and receive
@@ -105,6 +107,27 @@ class UserService {
             {
               headers: authHeader()
             });
+  }
+
+  /**
+   * Given a snippet of text, this function sends the text
+   * to the Open Library Search API to find the first 5 books that match
+   * the search text.
+   *
+   * @param searchText text sent to the Open Library Search API
+   */
+  async searchBook(searchText) {
+    let rawResponse = await axios
+        .get(
+            LIBRARY_API_URL +  searchText.trim().split(' ').join('+')
+        );
+
+    if (rawResponse.data && rawResponse.data.docs) {
+      return rawResponse.data.docs.slice(0, 5);
+    } else {
+      console.log("Invalid response format.")
+      return [];
+    }
   }
 }
 
