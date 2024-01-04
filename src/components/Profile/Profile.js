@@ -91,7 +91,7 @@ export default class Profile extends Component {
 
   render() {
     return(
-        <div className="profile">
+        <div id="profile">
           <h1>Profile</h1>
           <h2>My Bookshelf</h2>
           <div id="books">
@@ -103,7 +103,7 @@ export default class Profile extends Component {
 
           {this.state.showReviewWriter && <ReviewWriter updateProfile={this.updateProfile} closeModal={this.closeModal}/>}
 
-          <button className="open-review-writer" onClick={this.openModal}>
+          <button id="open-review-writer-button" onClick={this.openModal}>
               Write a Review
           </button>
         </div>

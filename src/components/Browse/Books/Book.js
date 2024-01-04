@@ -11,15 +11,14 @@ export default function Book() {
 
   return (
       <div className="book">
-        <h2>{receivedProps.book.title}</h2>
-        <h3>{receivedProps.book.author}</h3>
-        <p>{receivedProps.book.description}</p>
-        <p>{receivedProps.book.year}</p>
-        <p>{receivedProps.book.genre}</p>
-        <img src={receivedProps.book.cover} alt={"book cover for " + receivedProps.book.title}/>
+        <h2 className="book-title">{receivedProps.book.title}</h2>
+        <h3 className="book-author">{receivedProps.book.author}</h3>
+        <p className="book-date">{"Published " + receivedProps.book.year}</p>
+        <p className="book-genre">{receivedProps.book.genre}</p>
+        <img className="book-image" src={receivedProps.book.cover} alt={"book cover for " + receivedProps.book.title}/>
 
         <h3>Reviews</h3>
-        <div id="reviews">
+        <div id="book-reviews">
           {receivedProps.book.reviews.map((review, index) => (
               <Review key={index} review={review}/>
           ))}

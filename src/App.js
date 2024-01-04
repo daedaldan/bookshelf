@@ -64,14 +64,16 @@ class App extends Component {
     // Show different navbar links based on user authentication status.
     if (this.state.currentUser) {
       // If user is logged in, display links to Logout, Browse, and Profile.
-      navbarLinks = (<ul>
-                      <li>
+      navbarLinks = (<ul id="navbar">
+                      <li className="navbar-link">
                         <Logout logout={this.logout}/>
                       </li>
-                      <li>
+                      <li className="navbar-link">
                         <Link to={"/browse"}>
                           <button type="text">Browse</button>
                         </Link>
+                      </li>
+                      <li className="navbar-link">
                         <Link to={"/profile"}>
                           <button type="text">Profile</button>
                         </Link>
@@ -79,13 +81,13 @@ class App extends Component {
                     </ul>);
     } else {
       // If no user is logged in, display links to Register and Login.
-      navbarLinks = (<ul>
-                      <li>
+      navbarLinks = (<ul id="navbar">
+                      <li className="navbar-link">
                         <Link to={"/register"}>
                           <button type="primary">Register</button>
                         </Link>
                       </li>
-                      <li>
+                      <li className="navbar-link">
                         <Link to={"/login"}>
                           <button type="text">Login</button>
                         </Link>

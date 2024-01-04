@@ -7,9 +7,8 @@ import React from 'react';
 export default function LandingPage() {
   return (
       <div>
-        <div>
-          This is a website about books.
-        </div>
+        <h1 id="landing-page-heading">Find your next read</h1>
+        <p id="landing-page-text">Join a community of readers and discover the insights others have gained from their favorite books.</p>
         <footer>
           Daniel Wang, 2023
         </footer>

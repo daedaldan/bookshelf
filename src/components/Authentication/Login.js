@@ -93,7 +93,7 @@ export default class Login extends Component {
       }
 
       return (
-          <form onSubmit={this.handleLogin}>
+          <form id="login" onSubmit={this.handleLogin}>
             <label htmlFor="username">Username</label>
             <input
                 type="text"

@@ -165,7 +165,7 @@ export default class Register extends Component {
       }
 
       return (
-          <form onSubmit={this.handleRegister}>
+          <form id="register" onSubmit={this.handleRegister}>
             {/* Check if successful registration has already occurred before showing form inputs.*/}
             {!this.state.successful && (<div>
                 <label htmlFor="firstName">First Name</label>
