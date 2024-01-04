@@ -12,7 +12,7 @@ export default function Person () {
   return (
       <div className="person">
         <h3 className="person-name">{receivedProps.person.name}</h3>
-        <p className="person-review-count">{receivedProps.person.numReviews + " books"}</p>
+        <p className="person-review-count">{(receivedProps.person.numReviews === 1) ? (receivedProps.person.numReviews + " review") : (receivedProps.person.numReviews + " reviews")}</p>
         <div id="books">
           {receivedProps.person.books.map((book, index) => (
               <BookshelfItem key={index} book={book}/>

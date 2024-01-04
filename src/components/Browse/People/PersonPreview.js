@@ -21,7 +21,7 @@ export default function PersonPreview (props) {
   return (
       <div className="person-preview" onClick={handleClick}>
         <h3>{props.person.name}</h3>
-        <p>{props.person.numReviews + " reviews"}</p>
+        <p>{(props.person.numReviews === 1) ? (props.person.numReviews + " review") : (props.person.numReviews + " books")}</p>
       </div>
   );
 };

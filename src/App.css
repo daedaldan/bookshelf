@@ -51,7 +51,7 @@ body {
 
 #logo {
 	font-size: 20px;
-    background: #E15E40;
+    background: #059466;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -100,7 +100,7 @@ button {
   border: none;
   border-radius: 5px;
   font-size: 15px;
-  background: #ED7559;
+  background: #059466;
   margin-top: 2%;
   box-shadow: 0 0 2px gray;
 }
@@ -110,7 +110,7 @@ button:hover {
 }
 
 button:active {
-  background: #E46A4D;
+  background: #059466;
 }
 
 #login {
@@ -127,12 +127,11 @@ button:active {
 }
 
 /* Books */
-#books {
-
-}
-
 .book-preview {
-
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    margin-bottom: 2%;
+    padding: 2%;
 }
 
 .book-preview:hover {
@@ -214,12 +213,19 @@ button:active {
 }
 
 /* People */
-#people {
+.person {
 
 }
 
-.person {
+.person-preview {
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    margin-bottom: 2%;
+    padding: 2%;
+}
 
+.person-preview:hover {
+    opacity: 0.8;
 }
 
 .person-review-count {
@@ -228,7 +234,13 @@ button:active {
 
 /* General */
 @media (min-width: 767px) {
-  #people, #books {
+  #people{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    grid-gap: 10px;
+  }
+
+  #books {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
     grid-gap: 10px;
@@ -240,10 +252,6 @@ button:active {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      border-radius: 10px;
-      box-shadow: 0 0 10px gray;
-      margin-bottom: 2%;
-      padding: 2%;
   }
 }
 
