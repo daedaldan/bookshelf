@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { format } from 'date-fns';
 
 import UserService from '../../services/UserService.js';
 
@@ -7,7 +8,7 @@ export default class ReviewWriter extends Component {
     super(props);
     this.state = {
       reviewTitle: "",
-      reviewDate: "",
+      reviewDate: new Date(),
       reviewDescription: "",
       searchInput: "",
       booksFound: [],
@@ -17,7 +18,8 @@ export default class ReviewWriter extends Component {
     }
 
     this.handleReviewTitleChange = this.handleReviewTitleChange.bind(this);
-    this.handleReviewDateChange = this.handleReviewDateChange.bind(this);
+    this.handleReviewMonthChange = this.handleReviewMonthChange.bind(this);
+    this.handleReviewYearChange = this.handleReviewYearChange.bind(this);
     this.handleReviewDescriptionChange = this.handleReviewDescriptionChange.bind(this);
     this.handleReviewSubmission = this.handleReviewSubmission.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -81,13 +83,27 @@ export default class ReviewWriter extends Component {
     this.setState({ reviewTitle : e.target.value });
   }
 
-  /**
-   * Updates the review date input field when the user changes it.
-   * @param e user input for review date
+   /**
+   * Updates the review date's month input field when the user changes it.
+   * @param e user input for review date month
    */
-  handleReviewDateChange(e) {
-    this.setState({ reviewDate : e.target.value });
-  }
+  handleReviewMonthChange(e) {
+    const selectedMonth = parseInt(e.target.value, 10);
+    this.setState((prevState) => ({
+      reviewDate: new Date(new Date(prevState.reviewDate).setMonth(selectedMonth)),
+    }));
+  };
+
+  /**
+   * Updates the review date's year input field when the user changes it.
+   * @param e user input for review date year
+   */
+  handleReviewYearChange(e) {
+    const selectedYear = parseInt(e.target.value, 10);
+    this.setState((prevState) => ({
+      reviewDate: new Date(new Date(prevState.reviewDate).setFullYear(selectedYear)),
+    }));
+  };
 
   /**
    * Updates the review description input field when the user changes it.
@@ -119,11 +135,17 @@ export default class ReviewWriter extends Component {
       return alert("You must select a book for the review.");
     }
 
+    // Options for formatting date
+    const options = { year: 'numeric', month: 'long' };
+
+    // Convert the date to "month year" format
+    const formattedDate = this.state.reviewDate.toLocaleString('en-US', options);
+
     // Create the review, update the user profile, and reset the form's state.
     await UserService.createReview(
         this.state.reviewTitle,
         this.state.reviewDescription,
-        this.state.reviewDate,
+        formattedDate,
         this.state.selectedItem.title,
         this.state.selectedItem.author,
         this.state.selectedItem.year,
@@ -137,7 +159,7 @@ export default class ReviewWriter extends Component {
         // Reset the form's state.
         this.setState({
           reviewTitle: "",
-          reviewDate: "",
+          reviewDate: new Date(),
           reviewDescription: "",
           searchInput: "",
           booksFound: [],
@@ -225,6 +247,18 @@ export default class ReviewWriter extends Component {
   }
 
   render() {
+    // The month values to be used for the review date dropdown.
+    const months = Array.from({ length: 12 }, (_, index) => ({
+      value: index,
+      label: format(new Date(2020, index, 1), 'MMMM'),
+    }));
+
+    // The year values to be used for the review year dropdown (100 years ago to present).
+    const years = Array.from({ length: 101 }, (_, index) => {
+      const year = new Date().getFullYear() - 100 + index;
+      return { value: year, label: year.toString() };
+    });
+
     return(
         <dialog open className="review-writer">
           <h2>Write a Review</h2>
@@ -243,9 +277,31 @@ export default class ReviewWriter extends Component {
             {}
           </div>
 
+          {/* Review Title */}
           <textarea placeholder="Title" value={this.state.reviewTitle} onChange={this.handleReviewTitleChange} />
-          <textarea placeholder="Date of Reading" value={this.state.reviewDate} onChange={this.handleReviewDateChange} />
+
+          {/* Date of Reading */}
+          <label>Date of Reading</label>
+          <select value={this.state.reviewDate.getMonth()} onChange={this.handleReviewMonthChange}>
+            {months.map((month) => (
+              <option key={month.value} value={month.value}>
+                {month.label}
+              </option>
+            ))}
+          </select>
+
+          <select value={this.state.reviewDate.getFullYear()} onChange={this.handleReviewYearChange}>
+            {years.map((year) => (
+              <option key={year.value} value={year.value}>
+                {year.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Review Description */}
           <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
+
+          {/* Submit Button */}
           <button onClick={this.handleReviewSubmission}>Publish</button>
         </dialog>
 
