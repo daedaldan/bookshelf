@@ -69,13 +69,13 @@ class App extends Component {
                         <Logout logout={this.logout}/>
                       </li>
                       <li className="navbar-link">
-                        <Link to={"/browse"}>
-                          <button type="text">Browse</button>
+                        <Link to={"/profile"}>
+                          Profile
                         </Link>
                       </li>
                       <li className="navbar-link">
-                        <Link to={"/profile"}>
-                          <button type="text">Profile</button>
+                        <Link to={"/browse"}>
+                          Browse
                         </Link>
                       </li>
                     </ul>);
@@ -102,7 +102,7 @@ class App extends Component {
           {/* Display Bookshelf logo and navbarLinks in navigation bar. */}
           <nav>
             <Link id="logo" to={"/"}>
-              Bookshelf
+              <h1>Bookshelf</h1>
             </Link>
 
             {navbarLinks}

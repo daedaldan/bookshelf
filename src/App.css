@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+@import url('https://fonts.googleapis.com/css?family=DM+Serif+Display');
+
 /* Website */
 h1, h2, h3 {
+    font-family: 'DM Serif Display', Georgia, Times;
+}
+
+p {
 
 }
 
@@ -9,6 +16,10 @@ body {
 	margin: 0;
 	padding-left: 30px;
 	overflow-x: hidden;
+}
+
+body :not(h1, h2, h3) {
+    font-family: 'Noto Sans', Helvetica, Arial;
 }
 
 #main {
@@ -96,7 +107,7 @@ label {
 }
 
 button {
-  padding: 1%;
+  padding: 2%;
   border: none;
   border-radius: 5px;
   font-size: 15px;
