@@ -35,6 +35,17 @@ export default function People(props) {
        // Add the person's books and reviews.
        person.books = bookData;
        person.numReviews = props.people[username].length;
+       // Add the book cover URL of the person's most recently read book.
+       let maxReviewID = -1;
+       let mostRecentCover;
+       for (let reviewNum = 0; reviewNum < props.people[username].length; reviewNum++) {
+         if (props.people[username][reviewNum].id > maxReviewID) {
+           maxReviewID = props.people[username][reviewNum].id;
+           mostRecentCover = props.people[username][reviewNum].book.cover;
+         }
+       }
+
+       person.recentCover = mostRecentCover;
 
        // Add the person to peopleData.
        peopleData.push(person);
@@ -47,7 +58,7 @@ export default function People(props) {
         <div id="people">
           {(peopleData.length === 0) && "Nobody has written a review yet."}
           {peopleData.map((person, index) => (
-            <PersonPreview key={index} person={person}/>
+            <PersonPreview key={index} person={person} />
         ))}
         </div>
       </div>

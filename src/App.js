@@ -83,12 +83,12 @@ class App extends Component {
       // If no user is logged in, display links to Register and Login.
       navbarLinks = (<ul id="navbar">
                       <li className="navbar-link">
-                        <Link to={"/register"}>
+                        <Link className="link-button" to={"/register"}>
                           <button type="primary">Register</button>
                         </Link>
                       </li>
                       <li className="navbar-link">
-                        <Link to={"/login"}>
+                        <Link className="link-button" to={"/login"}>
                           <button type="text">Login</button>
                         </Link>
                       </li>
@@ -102,7 +102,7 @@ class App extends Component {
           {/* Display Bookshelf logo and navbarLinks in navigation bar. */}
           <nav>
             <Link id="logo" to={"/"}>
-              <h1>Bookshelf</h1>
+              <h1 id="logo-text">Bookshelf <img id="logo-image" src="http://127.0.0.1:8000/static/logo.png"/></h1>
             </Link>
 
             {navbarLinks}
