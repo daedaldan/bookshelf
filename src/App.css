@@ -138,6 +138,7 @@ dialog {
     top: 50%;
     left: 0;
     right: 0;
+    max-width: 80vw;
     transform: translateY(-50%);
     background-color: white;
     z-index: 1000;
