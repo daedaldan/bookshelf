@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'https://bookshelfapp-39ee208a0222.herokuapp.com/'
+    'https://bookshelfapp-39ee208a0222.herokuapp.com'
 ]
 
 # Application definition
@@ -160,8 +160,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Whitelist servers for frontend.
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
-    'https://bookshelfapp-39ee208a0222.herokuapp.com:8000'
+    'https://bookshelfapp-39ee208a0222.herokuapp.com'
 ]
 
