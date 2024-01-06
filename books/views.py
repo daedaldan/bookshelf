@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 
 import json
 
@@ -18,7 +16,6 @@ from rest_framework.renderers import JSONRenderer
 from .serializers import UserSerializer, BookSerializer, ReviewSerializer
 from .models import Book, Review
 
-@method_decorator(csrf_exempt, name='dispatch')
 class CreateUserView(APIView):
     """
     Process username and password sent from frontend and create a new User Django instance.
@@ -47,7 +44,6 @@ class CreateUserView(APIView):
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
-@csrf_exempt
 def create_review_view(request):
     """
     Creates a new Review with the specified title and description.
@@ -65,7 +61,6 @@ def create_review_view(request):
 
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
-@csrf_exempt
 def delete_review_view(request, review_id):
     """
     Delete the Review with the specified title and description.
@@ -77,7 +72,6 @@ def delete_review_view(request, review_id):
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-@csrf_exempt
 def get_user_reviews_view(request, username):
     """
     Returns all of the reviews authored by a given user.
@@ -101,7 +95,6 @@ def get_user_reviews_view(request, username):
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-@csrf_exempt
 def get_all_user_reviews_view(request):
     """
     Returns every Review ever written organized by User.
@@ -141,7 +134,6 @@ def get_all_user_reviews_view(request):
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-@csrf_exempt
 def get_all_book_reviews_view(request):
     """
     Returns every Review ever written organized by Book.
