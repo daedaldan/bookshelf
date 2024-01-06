@@ -220,6 +220,8 @@ button:active {
     position: relative;
   width: 20vh;
   height: 30vh;
+     border-radius: 5px;
+    margin-bottom: 2%;
   overflow: hidden;
 }
 
