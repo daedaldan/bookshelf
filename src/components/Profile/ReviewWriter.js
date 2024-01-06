@@ -260,51 +260,57 @@ export default class ReviewWriter extends Component {
     });
 
     return(
-        <dialog open className="review-writer">
-          <h2>Write a Review</h2>
-          <button className="close-button" onClick={this.props.closeModal}>
-              &times;
-          </button>
+        <div>
 
-          <div className="book-search">
-            <input
-              type="text"
-              value={this.state.searchInput}
-              onChange={this.handleInputChange}
-              placeholder="Search for a book"
-            />
-            {this.state.loading ? "Loading results..." : this.displaySuggestions()}
-            {}
-          </div>
+            <dialog open className="review-writer">
+              <div className="dialog-content">
+                <h2>Write a Review</h2>
+                <form>
+                  <button className="close-button" onClick={this.props.closeModal}>
+                      &times;
+                  </button>
 
-          {/* Review Title */}
-          <textarea placeholder="Title" value={this.state.reviewTitle} onChange={this.handleReviewTitleChange} />
+                  <div className="book-search">
+                    <input
+                      type="text"
+                      value={this.state.searchInput}
+                      onChange={this.handleInputChange}
+                      placeholder="Search for a book"
+                    />
+                    {this.state.loading ? "Loading results..." : this.displaySuggestions()}
+                    {}
+                  </div>
 
-          {/* Date of Reading */}
-          <label>Date of Reading</label>
-          <select value={this.state.reviewDate.getMonth()} onChange={this.handleReviewMonthChange}>
-            {months.map((month) => (
-              <option key={month.value} value={month.value}>
-                {month.label}
-              </option>
-            ))}
-          </select>
+                  {/* Review Title */}
+                  <textarea placeholder="Title" value={this.state.reviewTitle} onChange={this.handleReviewTitleChange} />
 
-          <select value={this.state.reviewDate.getFullYear()} onChange={this.handleReviewYearChange}>
-            {years.map((year) => (
-              <option key={year.value} value={year.value}>
-                {year.label}
-              </option>
-            ))}
-          </select>
+                  {/* Date of Reading */}
+                  <label id="date-label">Date of Reading</label>
+                  <select value={this.state.reviewDate.getMonth()} onChange={this.handleReviewMonthChange}>
+                    {months.map((month) => (
+                      <option key={month.value} value={month.value}>
+                        {month.label}
+                      </option>
+                    ))}
+                  </select>
 
-          {/* Review Description */}
-          <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
+                  <select value={this.state.reviewDate.getFullYear()} onChange={this.handleReviewYearChange}>
+                    {years.map((year) => (
+                      <option key={year.value} value={year.value}>
+                        {year.label}
+                      </option>
+                    ))}
+                  </select>
 
-          {/* Submit Button */}
-          <button className="publish-button" onClick={this.handleReviewSubmission}>Publish</button>
-        </dialog>
+                  {/* Review Description */}
+                  <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
 
+                  {/* Submit Button */}
+                  <button className="publish-button" onClick={this.handleReviewSubmission}>Publish</button>
+                </form>
+              </div>
+          </dialog>
+        </div>
     );
   }
 }

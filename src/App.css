@@ -118,33 +118,69 @@ h1 img {
 }
 
 /* Forms and Modals */
-form {
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 1000;
 
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    border: none;
+    padding: 2%;
 }
 
-dialog {
-
+.dialog-content {
+  position: relative;
 }
 
 input {
-    display: block;
+display: block;
   border: none;
   border-radius: 5px;
-  margin: 1% 0;
+    width: 40vh;
+  margin: 2% 0;
   padding: 1%;
   box-shadow: 0 0 5px gray;
   font-size: 0.8em;
   -webkit-appearance: none;
 }
 
+textarea {
+    display: block;
+  border: none;
+  border-radius: 5px;
+    width: 40vh;
+  margin: 2% 0;
+  padding: 1%;
+  box-shadow: 0  0 5px gray;
+  font-size: 0.8em;
+  -webkit-appearance: none;
+}
+
+#date-label {
+    display: block;
+}
+
+select {
+     display: inline-block;
+  border: none;
+  border-radius: 5px;
+    text-align: center;
+  margin: 2% 2% 2% 0;
+  padding: 1%;
+  box-shadow: 0 0 5px gray;
+  font-size: 0.8em;
+  -webkit-appearance: none;
+
+}
+
 input[type=checkbox] {
   border: solid;
   margin: 0.5%;
   appearance: auto;
-}
-
-label {
-
 }
 
 button {
@@ -166,24 +202,24 @@ button:active {
   background: var(--green);
 }
 
-#login {
-
+.close-button {
+    position: absolute;
+  top: 0;
+  right: 0;
+    margin-top: -4%
 }
 
-#register {
-
-}
-
-
-#logout {
-
+.delete-button {
+    position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 /* Books */
 .book-preview {
     position: relative;
-  width: 200px;
-  height: 300px;
+  width: 20vh;
+  height: 30vh;
   overflow: hidden;
 }
 
@@ -242,36 +278,7 @@ button:active {
     padding: 2%;
 }
 
-/* Reviews */
-.review-title {
-
-}
-
-.review-book {
-
-}
-
-.review-date {
-
-}
-
-.review-description {
-
-}
-
-#close-button {
-
-}
-
-#delete-button {
-
-}
-
 /* People */
-.person {
-
-}
-
 .person-preview {
     border-radius: 10px;
     box-shadow: 0 0 10px gray;
@@ -312,27 +319,6 @@ button:active {
       flex-direction: column;
       align-items: flex-start;
   }
-}
-
-/* Profile */
-.review-writer {
-
-}
-
-textarea {
-
-}
-
-select {
-
-}
-
-.open-review-writer-button {
-
-}
-
-.publish-button {
-
 }
 
 /* Footer */
