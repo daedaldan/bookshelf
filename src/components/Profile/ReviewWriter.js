@@ -61,7 +61,7 @@ export default class ReviewWriter extends Component {
       // Add the book's ID for ReactSearchAutocomplete.
       book.id = bookNum;
       // Create the book cover URL using the Open Library Cover API URL.
-      book.cover = 'https://covers.openlibrary.org/b/id/' + rawBooks[bookNum].cover_i + '-M.jpg';
+      book.cover = 'https://covers.openlibrary.org/b/id/' + rawBooks[bookNum].cover_i + '-L.jpg';
 
       // Add the book to the array.
       cleanedBooks.push(book);
