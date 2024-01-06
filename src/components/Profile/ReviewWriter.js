@@ -229,7 +229,7 @@ export default class ReviewWriter extends Component {
       return (
         <ul className="suggestions-list">
           {this.state.booksFound.map((book, index) => (
-            <li key={index} onClick={() => this.handleSelection(book)}>
+            <li key={index} onClick={() => this.handleSelection(book)} className="suggestion">
               {this.formatSuggestion(book)}
             </li>
           ))}
