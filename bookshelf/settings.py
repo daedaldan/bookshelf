@@ -165,3 +165,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://bookshelfapp-39ee208a0222.herokuapp.com',
+    'http://127.0.0.1:8000',
+]
+
