@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // URL for Django Rest API backend
-const API_URL = "http://127.0.0.1:8000/user/";
+const API_URL = "https://bookshelfapp-39ee208a0222.herokuapp.com/";
 
 /*
  * Handles user authentication by receiving, storing, deleting user token in web browser based on authentication status.

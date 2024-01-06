@@ -27,7 +27,10 @@ SECRET_KEY = 'django-insecure-@@fnpm00)38o6&!vwb7rnmd6ms%w4116*vyqr)i@+wuv13&z8+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'https://bookshelfapp-39ee208a0222.herokuapp.com/'
+]
 
 # Application definition
 
@@ -158,8 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Whitelist servers for frontend.
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://192.168.50.246:3000'
+    'https://bookshelfapp-39ee208a0222.herokuapp.com:8000'
 ]
 

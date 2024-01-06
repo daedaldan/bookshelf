@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from './AuthHeader';
 
 // URL for Django REST API backend
-const API_URL = 'http://127.0.0.1:8000/';
+const API_URL = 'https://bookshelfapp-39ee208a0222.herokuapp.com/';
 // URL for Open Library Search API
 const LIBRARY_API_URL = 'https://openlibrary.org/search.json?q=';
 
