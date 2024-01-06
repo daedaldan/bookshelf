@@ -136,18 +136,21 @@ h1 img {
 dialog {
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     background-color: white;
     z-index: 1000;
     border-radius: 10px;
     box-shadow: 0 0 10px gray;
     border: none;
     padding: 2%;
+    box-sizing: border-box;
 }
 
 .dialog-content {
     position: relative;
+    box-sizing: border-box;
 }
 
 input {
