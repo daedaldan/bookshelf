@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.renderers import JSONRenderer
 
 
@@ -21,7 +22,8 @@ class CreateUserView(APIView):
     Process username and password sent from frontend and create a new User Django instance.
     """
     # Anyone accessing the website can create a new account.
-    permission_classes = (permissions.AllowAny,)
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.AllowAny,]
 
     def post(self, request, format=None):
         """
@@ -43,6 +45,7 @@ class CreateUserView(APIView):
         return Response(json, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def create_review_view(request):
     """
@@ -60,6 +63,7 @@ def create_review_view(request):
     return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def delete_review_view(request, review_id):
     """
@@ -71,6 +75,7 @@ def delete_review_view(request, review_id):
     return Response("Review successfully deleted.")
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def get_user_reviews_view(request, username):
     """
@@ -94,6 +99,7 @@ def get_user_reviews_view(request, username):
     return JsonResponse(cleaned_data, safe=False, status=200)
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def get_all_user_reviews_view(request):
     """
@@ -133,6 +139,7 @@ def get_all_user_reviews_view(request):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def get_all_book_reviews_view(request):
     """
