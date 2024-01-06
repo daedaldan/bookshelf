@@ -160,16 +160,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Whitelist servers for frontend.
-CORS_ALLOWED_ORIGINS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ALLOWED_ORIGINS = [
-#     'https://bookshelfapp-39ee208a0222.herokuapp.com',
-#     'http://127.0.0.1:8000',
-# ]
+CORS_ALLOW_HEADERS = ['*']
+
+CORS_ALLOWED_ORIGINS = [
+    'https://bookshelfapp-39ee208a0222.herokuapp.com',
+    'http://127.0.0.1:8000',
+]
 #
-# CSRF_TRUSTED_ORIGINS = [
-#     'https://bookshelfapp-39ee208a0222.herokuapp.com',
-#     'http://127.0.0.1:8000',
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://bookshelfapp-39ee208a0222.herokuapp.com',
+    'http://127.0.0.1:8000',
+]
 
