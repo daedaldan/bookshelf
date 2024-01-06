@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-@@fnpm00)38o6&!vwb7rnmd6ms%w4116*vyqr)i@+wuv13&z8+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'https://bookshelfapp-39ee208a0222.herokuapp.com'
+    'https://bookshelfapp-39ee208a0222.herokuapp.com',
+    '127.0.0.1'
 ]
 
 # Application definition
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -161,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Whitelist servers for frontend.
 CORS_ALLOWED_ORIGINS = [
+    'https://bookshelfapp-39ee208a0222.herokuapp.com',
     'http://127.0.0.1:8000',
-    'https://bookshelfapp-39ee208a0222.herokuapp.com'
 ]
 
