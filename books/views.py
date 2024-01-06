@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 import json
 
@@ -9,20 +11,19 @@ from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
 from rest_framework.renderers import JSONRenderer
-
 
 from .serializers import UserSerializer, BookSerializer, ReviewSerializer
 from .models import Book, Review
 
+@method_decorator(csrf_exempt, name='dispatch')
 class CreateUserView(APIView):
     """
     Process username and password sent from frontend and create a new User Django instance.
     """
     # Anyone accessing the website can create a new account.
-    authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.AllowAny,]
 
     def post(self, request, format=None):
@@ -45,8 +46,8 @@ class CreateUserView(APIView):
         return Response(json, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
+@csrf_exempt
 def create_review_view(request):
     """
     Creates a new Review with the specified title and description.
@@ -63,8 +64,8 @@ def create_review_view(request):
     return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
-@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
+@csrf_exempt
 def delete_review_view(request, review_id):
     """
     Delete the Review with the specified title and description.
@@ -75,8 +76,8 @@ def delete_review_view(request, review_id):
     return Response("Review successfully deleted.")
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
+@csrf_exempt
 def get_user_reviews_view(request, username):
     """
     Returns all of the reviews authored by a given user.
@@ -99,8 +100,8 @@ def get_user_reviews_view(request, username):
     return JsonResponse(cleaned_data, safe=False, status=200)
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
+@csrf_exempt
 def get_all_user_reviews_view(request):
     """
     Returns every Review ever written organized by User.
@@ -139,8 +140,8 @@ def get_all_user_reviews_view(request):
 
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
+@csrf_exempt
 def get_all_book_reviews_view(request):
     """
     Returns every Review ever written organized by Book.
