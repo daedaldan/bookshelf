@@ -3,10 +3,10 @@ import React from 'react';
 export default function Review(props) {
   return (
       <div className="review">
-        <p>{props.review.title}</p>
+        <h1>{props.review.title}</h1>
+        <h2>{props.review.name}</h2>
+        <h3>{props.review.date}</h3>
         <p>{props.review.description}</p>
-        <p>{props.review.name}</p>
-        <p>{props.review.date}</p>
       </div>
   );
 }

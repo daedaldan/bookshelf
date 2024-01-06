@@ -11,10 +11,10 @@ export default function Book() {
 
   return (
       <div className="book">
-        <h2 className="book-title">{receivedProps.book.title}</h2>
-        <h3 className="book-author">{receivedProps.book.author}</h3>
-        <p className="book-date">{"Published " + receivedProps.book.year}</p>
-        <p className="book-genre">{receivedProps.book.genre}</p>
+        <h1 className="book-title">{receivedProps.book.title}</h1>
+        <h2 className="book-author">{receivedProps.book.author}</h2>
+        <h3 className="book-date">{"Published " + receivedProps.book.year}</h3>
+        <p className="book-genre"><b>Genre </b>{receivedProps.book.genre}</p>
         <img className="book-image" src={receivedProps.book.cover} alt={"book cover for " + receivedProps.book.title}/>
 
         <h3>Reviews</h3>

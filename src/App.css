@@ -67,10 +67,17 @@ h1 img {
 		align-items: center;
     }
 
-    .navbar-link {
-        margin-bottom: 10px;
+    nav ul {
+    list-style: none;
+  }
+
+    nav ul li a {
         color: black;
         text-decoration: none;
+    }
+
+    .navbar-link {
+        margin-bottom: 10px;
     }
 }
 
@@ -83,24 +90,31 @@ h1 img {
 		justify-content: space-between;
 	}
 
-    .navbar-link {
-        float: right;
-        margin-left: 20px;
-        color: black;
-        text-decoration: none;
-    }
+   nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+       flex-direction: row-reverse;
+  }
+
+  nav ul li a {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+  }
+
+  .navbar-link {
+    float: right;
+    margin-left: 20px;
+  }
 }
 
 #logo {
 	font-size: 130%;
     color: black;
     text-decoration: none;
-}
-
-#navbar {
-  	list-style-type: none;
-    margin: 0;
-  	padding: 0;
 }
 
 /* Forms and Modals */
@@ -135,16 +149,17 @@ label {
 
 button {
   padding: 0.75vh;
+    margin-top: 2%;
   border: none;
   border-radius: 5px;
   font-size: 15px;
   background: var(--green);
-  margin-top: 2%;
   box-shadow: 0 0 2px gray;
 }
 
 button:hover {
   color: #5A5A5A;
+    transition: opacity 0.3s ease-in-out;
 }
 
 button:active {
@@ -166,43 +181,65 @@ button:active {
 
 /* Books */
 .book-preview {
-    border-radius: 10px;
-    box-shadow: 0 0 10px gray;
-    margin-bottom: 2%;
-    padding: 2%;
+    position: relative;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.book-preview-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.book-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  transition: opacity 0.3s ease-in-out; /* Add a smooth transition effect */
 }
 
 .book-preview:hover {
     opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.book-preview-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  color: #fff; /* Text color */
+  transition: opacity 0.3s ease-in-out; /* Add a smooth transition effect */
+
+    overflow: hidden;
+  white-space: normal; /* Allow text to wrap */
+  text-align: center; /* Center the text */
+}
+
+.book-preview:hover .book-preview-image {
+  opacity: 0.5; /* Reduce image opacity on hover */
+}
+
+.book-preview:hover .book-preview-text {
+    pointer-events: none; /* Enable click events on the overlay when hovering */
+  opacity: 1; /* Show text on hover */
 }
 
 /* Book page with details */
-.book {
-
-}
-
-.book-title {
-
-}
-
-.book-author {
-
-}
-
-.book-date {
-
-}
-
-.book-genre {
-
-}
-
-.book-image {
-
-}
-
-.book-reviews {
-
+.review {
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    margin-bottom: 2%;
+    padding: 2%;
 }
 
 /* Reviews */
@@ -244,16 +281,14 @@ button:active {
 }
 
 .person-preview img {
-    margin-top: 1%;
+    border-radius: 5px;
+    margin-top: 2%;
 }
 
 
 .person-preview:hover {
     opacity: 0.8;
-}
-
-.person-review-count {
-
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* General */

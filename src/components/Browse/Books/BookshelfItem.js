@@ -24,6 +24,7 @@ export default class BookshelfItem extends Component {
    */
   openModal() {
     this.setState({ showReviewModal: true });
+    console.log("opened modal");
   };
 
   /**
@@ -50,31 +51,37 @@ export default class BookshelfItem extends Component {
 
   render() {
     return (
-      <div className="book-preview" onClick={this.openModal}>
-        <h3 className="book-preview-title">{this.props.book.title}</h3>
-        <p className="book-preview-author">{this.props.book.author}</p>
-        <p className="book-preview-year">{this.props.book.year}</p>
-        <p className="book-preview-genre">{this.props.book.genre}</p>
-        <img className="book-preview-image" src={this.props.book.cover} alt={"book cover for " + this.props.book.title}/>
+        <div>
+          <div className="book-preview" onClick={this.openModal}>
+            <div className="book-preview-container">
+              <img className="book-preview-image" src={this.props.book.cover} alt={"book cover for " + this.props.book.title}/>
+              <div className="book-preview-text">
+                <h3 className="book-preview-title">{this.props.book.title}</h3>
+                <p className="book-preview-author">{this.props.book.author}</p>
+                <p className="book-preview-year">{this.props.book.year}</p>
+                <p className="book-preview-genre">{this.props.book.genre}</p>
+              </div>
+            </div>
+          </div>
 
-        {/* The review for the bookshelf item is displayed as a modal. */}
-        {this.state.showReviewModal && (
-            <dialog open className="review-modal">
-              <button className="close-button" onClick={this.closeModal}>
-                &times;
-              </button>
-              <h1 className="review-title">{this.props.book.review.title}</h1>
-              <h3 className="review-book">{this.props.book.title + " by " + this.props.book.author}</h3>
-              <h4 className="review-date">{"Read " + this.props.book.review.date}</h4>
-              <p className="review-description">{this.props.book.review.description}</p>
-              {this.props.book.canDelete && (
-                  <button className="delete-button" onClick={this.deleteReview}>
-                    Delete
-                  </button>
-              )}
-            </dialog>
-        )}
-      </div>
+          {/* The review for the bookshelf item is displayed as a modal. */}
+          {this.state.showReviewModal && (
+              <dialog open className="review-modal">
+                <button className="close-button" onClick={this.closeModal}>
+                  &times;
+                </button>
+                <h1 className="review-title">{this.props.book.review.title}</h1>
+                <h3 className="review-book">{this.props.book.title + " by " + this.props.book.author}</h3>
+                <h4 className="review-date">{"Read " + this.props.book.review.date}</h4>
+                <p className="review-description">{this.props.book.review.description}</p>
+                {this.props.book.canDelete && (
+                    <button className="delete-button" onClick={this.deleteReview}>
+                      Delete
+                    </button>
+                )}
+              </dialog>
+          )}
+        </div>
     );
   }
 };

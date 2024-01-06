@@ -20,11 +20,15 @@ export default function BookPreview (props) {
 
   return (
       <div className="book-preview" onClick={handleClick}>
-        <h3 className="book-preview-title">{props.book.title}</h3>
-        <p className="book-preview-author">{props.book.author}</p>
-        <p className="book-preview-year">{props.book.year}</p>
-        <p className="book-preview-genre">{props.book.genre}</p>
-        <img className="book-preview-image" src={props.book.cover} alt={"book cover for " + props.book.title}/>
+        <div className="book-preview-container">
+           <img className="book-preview-image" src={props.book.cover} alt={"book cover for " + props.book.title}/>
+          <div className="book-preview-text">
+            <h3 className="book-preview-title">{props.book.title}</h3>
+            <p className="book-preview-author">{props.book.author}</p>
+            <p className="book-preview-year">{props.book.year}</p>
+            <p className="book-preview-genre">{props.book.genre}</p>
+          </div>
+        </div>
       </div>
   );
 };
