@@ -102,7 +102,7 @@ class App extends Component {
           {/* Display Bookshelf logo and navbarLinks in navigation bar. */}
           <nav>
             <Link id="logo" to={"/"}>
-              <h1 id="logo-text">Bookshelf <img id="logo-image" src="http://127.0.0.1:8000/static/logo.png"/></h1>
+              <h1 id="logo-text">Bookshelf <img id="logo-image" src="https://bookshelfapp-39ee208a0222.herokuapp.com/static/logo.png"/></h1>
             </Link>
 
             {navbarLinks}
