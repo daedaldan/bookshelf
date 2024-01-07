@@ -154,26 +154,15 @@ dialog {
     box-sizing: border-box;
 }
 
-input {
+input, textarea {
     display: block;
     border: none;
     border-radius: 5px;
     width: 40vh;
+    max-width: 85%;
     margin: 2% 0;
     padding: 1%;
     box-shadow: 0 0 5px gray;
-    font-size: 0.8em;
-    -webkit-appearance: none;
-}
-
-textarea {
-    display: block;
-    border: none;
-    border-radius: 5px;
-    width: 40vh;
-    margin: 2% 0;
-    padding: 1%;
-    box-shadow: 0  0 5px gray;
     font-size: 0.8em;
     -webkit-appearance: none;
 }
@@ -349,8 +338,8 @@ button:active {
 
 
 .person-preview img {
-    width: 80%;
-    height: auto;
+    max-height: 70%;
+    max-width: 80%;
     border-radius: 5px;
     margin-top: 2%;
 }
