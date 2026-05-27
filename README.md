@@ -1,7 +1,8 @@
 # Bookshelf
 Bookshelf is an app that lets your share your favorite books with others.
 
-To use the app, you can visit http://bookshelfapp-39ee208a0222.herokuapp.com.
+_This link is no longer active._
+~~To use the app, you can visit http://bookshelfapp-39ee208a0222.herokuapp.com.~~
 
 To work with the code on your local machine, use the following steps on the command line:
 ```
