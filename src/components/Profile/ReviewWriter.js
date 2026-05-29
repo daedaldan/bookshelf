@@ -25,7 +25,6 @@ export default class ReviewWriter extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
     this.formatSuggestion = this.formatSuggestion.bind(this);
-    this.displaySuggestions = this.displaySuggestions.bind(this);
 
     // Initialize a variable to store the timer for updating books
     this.debounceTimer = null;
@@ -175,15 +174,11 @@ export default class ReviewWriter extends Component {
    * When the user's search input changes, update the text displayed and books found in the backend.
    */
   handleInputChange(e) {
-    // Update the search input state.
     this.setState({
-      searchInput: e.target.value
-    });
-
-    // If a book has already been selected, unselect it.
-    this.setState({
+      searchInput: e.target.value,
       selectedItem: {},
-      selectedBook: false
+      selectedBook: false,
+      noBooksFound: false,
     });
 
     // Clear the previous timer.
@@ -218,34 +213,6 @@ export default class ReviewWriter extends Component {
     return book.title + " by " + book.author;
   };
 
-  /**
-   * Returns unordered list HTML for book suggestions
-   * @returns {JSX.Element} list of book suggestions
-   */
-  displaySuggestions() {
-    if (this.state.selectedBook) { // If the user has already selected a book, return nothing.
-      return (<div></div>);
-    } else if (!this.state.noBooksFound) {
-      return (
-        <ul className="suggestions-list">
-          {this.state.booksFound.map((book, index) => (
-            <li key={index} onClick={() => this.handleSelection(book)} className="suggestion">
-              {this.formatSuggestion(book)}
-            </li>
-          ))}
-        </ul>
-      );
-    } else {
-        return (
-            <ul className="suggestions-list">
-              <li>
-                No books found.
-              </li>
-            </ul>
-        );
-    }
-  }
-
   render() {
     // The month values to be used for the review date dropdown.
     const months = Array.from({ length: 12 }, (_, index) => ({
@@ -270,15 +237,35 @@ export default class ReviewWriter extends Component {
                       &times;
                   </button>
 
-                  <div className="book-search">
+                  <div className={`book-search${this.state.searchInput && !this.state.selectedBook && (this.state.loading || this.state.booksFound.length > 0 || this.state.noBooksFound) ? ' book-search-open' : ''}`}>
                     <input
+                      className="book-search-input"
                       type="text"
                       value={this.state.searchInput}
                       onChange={this.handleInputChange}
                       placeholder="Search for a book"
                     />
-                    {this.state.loading ? "Loading results..." : this.displaySuggestions()}
-                    {}
+                    {this.state.searchInput && !this.state.selectedBook && (this.state.loading || this.state.booksFound.length > 0 || this.state.noBooksFound) && (
+                      <div className="book-search-dropdown">
+                        {this.state.loading ? (
+                          <div className="book-search-message">Loading results...</div>
+                        ) : this.state.noBooksFound ? (
+                          <div className="book-search-message">No books found.</div>
+                        ) : (
+                          <ul className="book-search-list">
+                            {this.state.booksFound.map((book, index) => (
+                              <li
+                                key={index}
+                                onClick={() => this.handleSelection(book)}
+                                className="book-search-option"
+                              >
+                                {this.formatSuggestion(book)}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   {/* Review Title */}
@@ -286,21 +273,23 @@ export default class ReviewWriter extends Component {
 
                   {/* Date of Reading */}
                   <label id="date-label">Date of Reading</label>
-                  <select value={this.state.reviewDate.getMonth()} onChange={this.handleReviewMonthChange}>
-                    {months.map((month) => (
-                      <option key={month.value} value={month.value}>
-                        {month.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="review-date-selects">
+                    <select value={this.state.reviewDate.getMonth()} onChange={this.handleReviewMonthChange}>
+                      {months.map((month) => (
+                        <option key={month.value} value={month.value}>
+                          {month.label}
+                        </option>
+                      ))}
+                    </select>
 
-                  <select value={this.state.reviewDate.getFullYear()} onChange={this.handleReviewYearChange}>
-                    {years.map((year) => (
-                      <option key={year.value} value={year.value}>
-                        {year.label}
-                      </option>
-                    ))}
-                  </select>
+                    <select value={this.state.reviewDate.getFullYear()} onChange={this.handleReviewYearChange}>
+                      {years.map((year) => (
+                        <option key={year.value} value={year.value}>
+                          {year.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
                   {/* Review Description */}
                   <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />

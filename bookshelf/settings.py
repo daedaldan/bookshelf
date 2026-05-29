@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
-import django_heroku
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,8 +26,8 @@ SECRET_KEY = 'django-insecure-@@fnpm00)38o6&!vwb7rnmd6ms%w4116*vyqr)i@+wuv13&z8+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://bookshelfapp-39ee208a0222.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost',
 ]
 
 # Application definition
@@ -139,9 +137,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Configure app for Heroku deployment.
-django_heroku.settings(locals())
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -159,14 +154,18 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Whitelist servers for frontend.
+# Whitelist origins for local development (React dev server on port 3000).
 CORS_ALLOWED_ORIGINS = [
-    'https://bookshelfapp-39ee208a0222.herokuapp.com',
     'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://bookshelfapp-39ee208a0222.herokuapp.com',
     'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
 

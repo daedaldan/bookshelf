@@ -1,8 +1,8 @@
 import axios from 'axios';
 import authHeader from './AuthHeader';
 
-// URL for Django REST API backend
-const API_URL = 'https://bookshelfapp-39ee208a0222.herokuapp.com/';
+// Same-origin API — Django serves the React build and API together locally
+const API_URL = '/';
 // URL for Open Library Search API
 const LIBRARY_API_URL = 'https://openlibrary.org/search.json?q=';
 

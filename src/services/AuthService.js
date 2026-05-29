@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// URL for Django Rest API backend
-const API_URL = "https://bookshelfapp-39ee208a0222.herokuapp.com/user/";
+// Same-origin API — Django serves the React build and API together locally
+const API_URL = "/user/";
 
 /*
  * Handles user authentication by receiving, storing, deleting user token in web browser based on authentication status.
