@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import AuthService from '../../services/AuthService.js';
+import './Auth.css';
 
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
@@ -60,7 +61,8 @@ export default class Login extends Component {
           },
           // If any errors occur, show the error message(s).
           error => {
-            if (error.response.status === 400) {
+            // When CORS/network fails, `error.response` may be undefined.
+            if (error.response && error.response.status === 400) {
               this.setState({
                 loading: false,
                 message: "Your username or password is incorrect. Please try again."
@@ -93,30 +95,50 @@ export default class Login extends Component {
       }
 
       return (
-          <form id="login" onSubmit={this.handleLogin}>
-            <label htmlFor="username">Username</label>
-            <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-            />
+          <div className="auth-page">
+            <form id="login" className="auth-form" onSubmit={this.handleLogin}>
+              <div className="auth-form-card">
+                <h1 className="auth-form-title">Welcome back</h1>
+                <p className="auth-form-subtitle">Sign in to continue to Bookshelf</p>
 
-            <label htmlFor="password">Password</label>
-            <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-            />
+                <div className="auth-field">
+                  <label htmlFor="login-username">Username</label>
+                  <input
+                      id="login-username"
+                      type="text"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.onChangeUsername}
+                      autoComplete="username"
+                  />
+                </div>
 
-            <button disabled={this.state.loading}>
-              Login
-            </button>
+                <div className="auth-field">
+                  <label htmlFor="login-password">Password</label>
+                  <input
+                      id="login-password"
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChangePassword}
+                      autoComplete="current-password"
+                  />
+                </div>
 
-            {/* Show message(s), if any exist. */}
-            {this.state.message ? this.state.message : ""}
-          </form>
+                <button className="btn btn-primary auth-submit" disabled={this.state.loading}>
+                  {this.state.loading ? "Signing in..." : "Sign in"}
+                </button>
+
+                {this.state.message && (
+                  <p className="auth-message auth-message-error">{this.state.message}</p>
+                )}
+
+                <p className="auth-form-footer">
+                  Don&apos;t have an account? <Link to="/register">Create one</Link>
+                </p>
+              </div>
+            </form>
+          </div>
       );
     }
 }

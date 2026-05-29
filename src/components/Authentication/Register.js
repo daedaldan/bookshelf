@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import isEmail from 'validator/lib/isEmail';
 
 import AuthService from '../../services/AuthService.js';
+import './Auth.css';
 
 // Used to validate whether a login form field has been filled out or not.
 const required = value => {
@@ -135,7 +136,8 @@ export default class Register extends Component {
           },
           // If any errors occur, show the error message(s).
           error => {
-            if (error.response.status === 400) {
+            // When CORS/network fails, `error.response` may be undefined.
+            if (error.response && error.response.status === 400) {
               this.setState({
                 successful: false,
                 message: "The username or email you used is already associated with an account. Please try a new one."
@@ -165,58 +167,92 @@ export default class Register extends Component {
       }
 
       return (
-          <form id="register" onSubmit={this.handleRegister}>
-            {/* Check if successful registration has already occurred before showing form inputs.*/}
-            {!this.state.successful && (<div>
-                <label htmlFor="firstName">First Name</label>
-                <input
-                    type="text"
-                    name="firstName"
-                    value={this.state.firstName}
-                    onChange={this.onChangeFirstName}
-                />
+          <div className="auth-page">
+            <form id="register" className="auth-form" onSubmit={this.handleRegister}>
+              <div className="auth-form-card">
+                <h1 className="auth-form-title">Join Bookshelf</h1>
+                <p className="auth-form-subtitle">Create an account to share reviews and discover new reads</p>
 
-                <label htmlFor="username">Last Name</label>
-                <input
-                    type="text"
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={this.onChangeLastName}
-                />
+                {!this.state.successful && (
+                  <>
+                    <div className="auth-field-row">
+                      <div className="auth-field">
+                        <label htmlFor="register-firstName">First name</label>
+                        <input
+                            id="register-firstName"
+                            type="text"
+                            name="firstName"
+                            value={this.state.firstName}
+                            onChange={this.onChangeFirstName}
+                            autoComplete="given-name"
+                        />
+                      </div>
 
-                <label htmlFor="username">Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                />
+                      <div className="auth-field">
+                        <label htmlFor="register-lastName">Last name</label>
+                        <input
+                            id="register-lastName"
+                            type="text"
+                            name="lastName"
+                            value={this.state.lastName}
+                            onChange={this.onChangeLastName}
+                            autoComplete="family-name"
+                        />
+                      </div>
+                    </div>
 
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                />
+                    <div className="auth-field">
+                      <label htmlFor="register-email">Email</label>
+                      <input
+                          id="register-email"
+                          type="email"
+                          name="email"
+                          value={this.state.email}
+                          onChange={this.onChangeEmail}
+                          autoComplete="email"
+                      />
+                    </div>
 
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                />
+                    <div className="auth-field">
+                      <label htmlFor="register-username">Username</label>
+                      <input
+                          id="register-username"
+                          type="text"
+                          name="username"
+                          value={this.state.username}
+                          onChange={this.onChangeUsername}
+                          autoComplete="username"
+                      />
+                    </div>
 
-                <button>
-                  Register
-                </button>
+                    <div className="auth-field">
+                      <label htmlFor="register-password">Password</label>
+                      <input
+                          id="register-password"
+                          type="password"
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.onChangePassword}
+                          autoComplete="new-password"
+                      />
+                    </div>
+
+                    <button className="btn btn-primary auth-submit">
+                      Create account
+                    </button>
+                  </>
+                )}
+
+                {this.state.message && (
+                  <p className="auth-message auth-message-error">{this.state.message}</p>
+                )}
+
+                <p className="auth-form-footer">
+                  Already have an account? <Link to="/login">Sign in</Link>
+                </p>
               </div>
-            )}
-
-            {/* Show message(s), if any exist. */}
-            {this.state.message ? this.state.message : ""}
-          </form>
+            </form>
+          </div>
       );
     }
 }

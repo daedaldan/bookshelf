@@ -13,8 +13,16 @@ export default function Book() {
       <div className="book">
         <h1 className="book-title">{receivedProps.book.title}</h1>
         <h2 className="book-author">{receivedProps.book.author}</h2>
-        <h3 className="book-date">{"Published: " + receivedProps.book.year}</h3>
-        <h3 className="book-genre">{"Genre: " + receivedProps.book.genre}</h3>
+        <div className="book-meta">
+          <span className="book-meta-tag book-meta-tag-year">
+            <span className="book-meta-label">Published</span>
+            <span className="book-meta-value">{receivedProps.book.year}</span>
+          </span>
+          <span className="book-meta-tag book-meta-tag-genre">
+            <span className="book-meta-label">Genre</span>
+            <span className="book-meta-value">{receivedProps.book.genre}</span>
+          </span>
+        </div>
         <img className="book-image" src={receivedProps.book.cover} alt={"book cover for " + receivedProps.book.title}/>
 
         <h1>Reviews</h1>

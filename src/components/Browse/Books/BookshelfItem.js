@@ -68,11 +68,13 @@ export default class BookshelfItem extends Component {
           {this.state.showReviewModal && (
               <div>
                 <dialog open className="review-modal">
-                  <div className="dialog-content">
-                    <button className="close-button" onClick={this.closeModal}>
-                      &times;
-                    </button>
-                    <h1 className="review-title">{this.props.book.review.title}</h1>
+                  <div className="dialog-content review-modal-content">
+                    <div className="review-modal-header">
+                      <h1 className="review-title">{this.props.book.review.title}</h1>
+                      <button className="close-button" onClick={this.closeModal} aria-label="Close review">
+                        &times;
+                      </button>
+                    </div>
                     <h2 className="review-book">{this.props.book.title + " by " + this.props.book.author}</h2>
                     <h3 className="review-date">{"Read " + this.props.book.review.date}</h3>
                     <p className="review-description">{this.props.book.review.description}</p>
