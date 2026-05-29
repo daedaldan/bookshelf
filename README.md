@@ -1,7 +1,7 @@
 # Bookshelf
 Bookshelf is an app that lets your share your favorite books with others.
 
-To install and run the app on your local machine, run the following lines on the command line:
+To install the app on your local machine, run the following lines on the command line:
 ```
 git clone https://github.com/daedaldan/bookshelf.git
 cd bookshelf
