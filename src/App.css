@@ -70,6 +70,7 @@ body :not(h1, h2, h3) {
 #logo-text {
     margin: 0;
     letter-spacing: -0.02em;
+    font-size: 1.75rem;
 }
 
 #logo {
@@ -191,6 +192,17 @@ dialog {
     box-sizing: border-box;
 }
 
+dialog.review-writer {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    max-width: 80%;
+}
+
+dialog.review-writer::backdrop {
+    background: rgba(0, 0, 0, 0.24);
+}
+
 .review-modal {
     padding: 1.25rem;
     min-width: 30vw;
@@ -233,11 +245,121 @@ dialog .publish-button {
     margin-top: 0.75rem;
 }
 
-.review-date-selects {
+.review-writer {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.review-writer .dialog-content {
+    padding: 2rem 1.75rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+.review-writer .dialog-content h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+}
+
+.review-writer form {
     display: flex;
-    gap: 0.5rem;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.review-writer input,
+.review-writer textarea,
+.review-writer select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.95rem 1rem;
     margin: 0.75rem 0;
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.review-writer textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.review-writer input:focus,
+.review-writer textarea:focus,
+.review-writer select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(74, 203, 109, 0.12);
+}
+
+.review-writer .book-search {
+    width: 100%;
+    max-width: 100%;
+    margin: 0.75rem 0;
+}
+
+.review-writer .book-search .book-search-input {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: none;
+    padding: 0.95rem 1rem;
+}
+
+.review-writer .book-search-open .book-search-input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.08);
+}
+
+.review-writer .review-date-selects {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 0.75rem 0 1rem;
+    flex-wrap: wrap;
+}
+
+.review-writer #date-label {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+}
+
+.review-writer .publish-button {
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    padding: 0.95rem 1.25rem;
+}
+
+.review-writer .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: white;
+    color: var(--ink);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.review-writer .close-button:hover {
+    background: var(--cream);
 }
 
 .review-date-selects select {
@@ -724,6 +846,10 @@ button.btn-secondary:hover,
 }
 
 /* People */
+.person-preview {
+    position: relative;
+}
+
 @media (min-width: 767px) {
     .person-preview {
         border-radius: 10px;
@@ -735,6 +861,7 @@ button.btn-secondary:hover,
         text-align: center;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         overflow: hidden;
         box-sizing: border-box;
@@ -752,18 +879,19 @@ button.btn-secondary:hover,
         text-align: center;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         overflow: hidden;
         box-sizing: border-box;
     }
 }
 
-
 .person-preview img {
     flex: 1 1 0;
     min-height: 0;
     max-width: 85%;
     width: auto;
+    margin-bottom: 1rem;
     border-radius: 5px;
     object-fit: contain;
 }
@@ -771,7 +899,7 @@ button.btn-secondary:hover,
 .person-preview h3 {
     flex-shrink: 0;
     width: 100%;
-    margin: 0.5rem 0 0;
+    margin: 0.75rem 0 0.5rem;
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: clamp(0.85rem, 1.8vw, 1rem);
@@ -783,12 +911,15 @@ button.btn-secondary:hover,
     -webkit-box-orient: vertical;
 }
 
-.person-preview p {
-    flex-shrink: 0;
-    width: 100%;
-    margin: 0.25rem 0 0;
-    font-size: 0.85rem;
-    line-height: 1.2;
+.person-preview .person-review-count {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--green-soft);
+    color: var(--green-dark);
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    border: 1px solid rgba(58, 157, 85, 0.2);
 }
 
 .person-preview:hover {
@@ -798,16 +929,12 @@ button.btn-secondary:hover,
 
 /* General */
 @media (min-width: 767px) {
-  #people{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-    grid-gap: 10px;
-  }
-
-  #books {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-    grid-gap: 10px;
+  #people, #books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 
@@ -834,6 +961,19 @@ button.btn-secondary:hover,
     #profile {
         text-align: center;
     }
+}
+
+/* Person Review Count */
+.person-review-count {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--green-soft);
+    color: var(--green-dark);
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin: 0.15rem 0 0.15rem;
+    border: 1px solid rgba(58, 157, 85, 0.2);
 }
 
 /* Footer */

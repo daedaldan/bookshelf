@@ -22,7 +22,7 @@ export default function PersonPreview (props) {
       <div className="person-preview" onClick={handleClick}>
         <img src={props.person.recentCover} alt={"Book cover from " + props.person.firstName +"'s latest book review"} />
         <h3>{props.person.name}</h3>
-        <p>{(props.person.numReviews === 1) ? (props.person.numReviews + " book") : (props.person.numReviews + " books")}</p>
+        <div className="person-review-count">{(props.person.numReviews === 1) ? (props.person.numReviews + " book") : (props.person.numReviews + " books")}</div>
       </div>
   );
 };

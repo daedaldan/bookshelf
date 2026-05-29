@@ -233,7 +233,7 @@ export default class ReviewWriter extends Component {
               <div className="dialog-content">
                 <h2>Write a Review</h2>
                 <form>
-                  <button className="close-button" onClick={this.props.closeModal}>
+                  <button type="button" className="close-button" onClick={this.props.closeModal}>
                       &times;
                   </button>
 
@@ -295,7 +295,7 @@ export default class ReviewWriter extends Component {
                   <textarea placeholder="Your review here" value={this.state.reviewDescription} onChange={this.handleReviewDescriptionChange} />
 
                   {/* Submit Button */}
-                  <button className="publish-button" onClick={this.handleReviewSubmission}>Publish</button>
+                  <button type="button" className="publish-button" onClick={this.handleReviewSubmission}>Publish</button>
                 </form>
               </div>
           </dialog>
